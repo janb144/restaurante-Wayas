@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consultar Desempeño de Proveedor</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="text-center mb-4 title-wayas">📈 Consultar Desempeño de Proveedor</h2>
+
+    <!-- Filtro por proveedor y criterio -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <form class="row g-3">
+          <div class="col-md-6">
+            <label for="proveedor" class="form-label">Proveedor</label>
+            <select id="proveedor" class="form-select">
+              <option selected>Seleccionar proveedor</option>
+              <option>AgroPerú</option>
+              <option>Distribuidora Sur</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="criterio" class="form-label">Filtrar por criterio</label>
+            <select id="criterio" class="form-select">
+              <option>Todos</option>
+              <option>Calidad del insumo</option>
+              <option>Cumplimiento de peso</option>
+              <option>Puntualidad en entrega</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-primary w-100">🔍 Consultar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Promedio y estado -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📊 Desempeño general</h5>
+        <p><strong>Proveedor:</strong> AgroPerú</p>
+        <p><strong>Promedio general:</strong> <span class="badge bg-success">Bueno</span></p>
+        <p><strong>Estado actual:</strong> <span class="badge bg-success">Activo</span></p>
+        <div class="text-end">
+          <button class="btn btn-outline-danger">🚫 Cambiar a inactivo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historial de compras calificadas -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📚 Historial de compras calificadas</h5>
+        <table class="table table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>Compra</th>
+              <th>Fecha</th>
+              <th>Calidad</th>
+              <th>Peso</th>
+              <th>Puntualidad</th>
+              <th>Observaciones</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>C-2025-001</td>
+              <td>2025-10-14</td>
+              <td>Bueno</td>
+              <td>Regular</td>
+              <td>Bueno</td>
+              <td>Entrega puntual pero empaques dañados</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+            <tr>
+              <td>C-2025-003</td>
+              <td>2025-10-10</td>
+              <td>Regular</td>
+              <td>Malo</td>
+              <td>Regular</td>
+              <td>Faltó peso en verduras</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Exportar resumen -->
+    <div class="text-end mb-4">
+      <button class="btn btn-outline-dark me-2">📄 Exportar PDF</button>
+      <button class="btn btn-outline-dark">📊 Exportar Excel</button>
+    </div>
+
+    <!-- Volver -->
+    <div class="text-center">
+      <a href="gestion_calificacion.html" class="btn btn-secondary">⬅ Volver a Gestión de Calificación</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

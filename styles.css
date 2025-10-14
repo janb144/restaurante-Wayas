@@ -1,0 +1,32 @@
+/* styles.css - Estilos personalizados para Restaurante Wayas */
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title-wayas {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.subtitle-wayas {
+  font-size: 1.4rem;
+  color: #6c757d;
+}
+
+.btn-lg {
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+a.btn:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}

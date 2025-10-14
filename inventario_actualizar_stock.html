@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Actualizar Inventario</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="text-center mb-4 title-wayas">🔧 Actualizar Inventario</h2>
+
+    <!-- Formulario de actualización -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📝 Modificar insumo</h5>
+        <form class="row g-3">
+          <div class="col-md-4">
+            <label for="insumo" class="form-label">Insumo</label>
+            <select id="insumo" class="form-select">
+              <option>Seleccionar insumo activo</option>
+              <option>Tomate</option>
+              <option>Pollo</option>
+              <option>Lechuga</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="cantidad" class="form-label">Nueva cantidad</label>
+            <input type="number" class="form-control" id="cantidad" placeholder="Ej. 40">
+          </div>
+          <div class="col-md-3">
+            <label for="estado" class="form-label">Estado del insumo</label>
+            <select id="estado" class="form-select">
+              <option>Activo</option>
+              <option>Vencido</option>
+              <option>Malogrado</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="motivo" class="form-label">Motivo de actualización</label>
+            <input type="text" class="form-control" id="motivo" placeholder="Ej. Ajuste por conteo físico">
+          </div>
+          <div class="col-md-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="fecha">
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success">✅ Confirmar y guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Historial de actualizaciones -->
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">📚 Historial de actualizaciones</h5>
+        <table class="table table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>Fecha</th>
+              <th>Insumo</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
+              <th>Motivo</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-10-14</td>
+              <td>Tomate</td>
+              <td>40 kg</td>
+              <td>Activo</td>
+              <td>Ajuste por conteo físico</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+            <tr>
+              <td>2025-10-10</td>
+              <td>Lechuga</td>
+              <td>0 kg</td>
+              <td>Malogrado</td>
+              <td>Retiro por mal estado</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Volver -->
+    <div class="text-center mt-4">
+      <a href="gestion_inventario.html" class="btn btn-secondary">⬅ Volver a Gestión de Inventario</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

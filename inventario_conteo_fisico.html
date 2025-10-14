@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conteo Físico de Insumos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="text-center title-wayas mb-4">📦 Conteo Físico de Insumos</h2>
+
+    <!-- Lista de insumos activos -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📝 Ingresar conteo físico</h5>
+        <form class="row g-3">
+          <div class="col-md-6">
+            <label for="insumo" class="form-label">Insumo</label>
+            <select id="insumo" class="form-select">
+              <option>Seleccionar insumo activo</option>
+              <option>Tomate</option>
+              <option>Pollo</option>
+              <option>Lechuga</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="cantidad" class="form-label">Cantidad física</label>
+            <input type="number" class="form-control" id="cantidad" placeholder="Ej. 25">
+          </div>
+          <div class="col-md-3">
+            <label for="fecha" class="form-label">Fecha de conteo</label>
+            <input type="date" class="form-control" id="fecha">
+          </div>
+          <div class="col-12 text-end">
+            <button class="btn btn-primary">Agregar al conteo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla de conteo -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📋 Conteo actual</h5>
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Insumo</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tomate</td>
+              <td>25 kg</td>
+              <td>2025-10-14</td>
+              <td><button class="btn btn-sm btn-danger">🗑️</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between mt-4">
+          <button class="btn btn-outline-secondary">💾 Guardar como borrador</button>
+          <button class="btn btn-outline-success">✅ Guardar definitivo</button>
+          <button class="btn btn-outline-dark">📄 Generar comprobante PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="gestion_inventario.html" class="btn btn-secondary">⬅ Volver a Gestión de Inventario</a>
+    </div>
+  </div>
+</body>
+</html>
