@@ -13,99 +13,80 @@
   <div class="container py-5">
     <h2 class="text-center mb-4 title-wayas">📥 Ingreso de Nuevos Insumos</h2>
 
-    <!-- Formulario de nuevo insumo -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">🆕 Crear nuevo insumo</h5>
-        <form class="row g-3">
-          <div class="col-md-4">
-            <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
-            <input type="text" class="form-control" id="nombreInsumo" placeholder="Ej. Zanahoria">
-          </div>
-          <div class="col-md-4">
-            <label for="categoria" class="form-label">Categoría</label>
-            <select id="categoria" class="form-select">
-              <option>Verduras</option>
-              <option>Carnes</option>
-              <option>Bebidas</option>
-              <option>Otros</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="unidad" class="form-label">Unidad de medida</label>
-            <select id="unidad" class="form-select">
-              <option>kg</option>
-              <option>litros</option>
-              <option>unidades</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="proveedor" class="form-label">Proveedor</label>
-            <select id="proveedor" class="form-select">
-              <option>Seleccionar proveedor</option>
-              <option>AgroPerú</option>
-              <option>Distribuidora Sur</option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label for="cantidad" class="form-label">Cantidad ingresada</label>
-            <input type="number" class="form-control" id="cantidad" placeholder="Ej. 50">
-          </div>
-          <div class="col-md-3">
-            <label for="fechaIngreso" class="form-label">Fecha de ingreso</label>
-            <input type="date" class="form-control" id="fechaIngreso">
-          </div>
-          <div class="col-md-6">
-            <label for="compraAsociada" class="form-label">Asociar a compra registrada (opcional)</label>
-            <select id="compraAsociada" class="form-select">
-              <option>Ninguna</option>
-              <option>Compra #C-2025-001</option>
-              <option>Compra #C-2025-002</option>
-            </select>
-          </div>
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-success">✅ Registrar insumo</button>
-          </div>
-        </form>
+<!-- Formulario de nuevo insumo -->
+<div class="card mb-4 shadow">
+  <div class="card-body">
+    <h5 class="card-title">🆕 Crear nuevo insumo</h5>
+    <form class="row g-3">
+      <div class="col-md-4">
+        <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
+        <input type="text" class="form-control" id="nombreInsumo" placeholder="Ej. Zanahoria">
       </div>
-    </div>
+      <div class="col-md-4">
+        <label for="categoria" class="form-label">Categoría</label>
+        <select id="categoria" class="form-select">
+          <option>Verduras</option>
+          <option>Carnes</option>
+          <option>Bebidas</option>
+          <option>Otros</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="unidad" class="form-label">Unidad de medida</label>
+        <select id="unidad" class="form-select">
+          <option>kg</option>
+          <option>litros</option>
+          <option>unidades</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="cantidad" class="form-label">Cantidad ingresada</label>
+        <input type="number" class="form-control" id="cantidad" placeholder="Ej. 50">
+      </div>
+      <div class="col-md-6">
+        <label for="fechaIngreso" class="form-label">Fecha de ingreso</label>
+        <input type="date" class="form-control" id="fechaIngreso">
+      </div>
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-success">✅ Registrar insumo</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-    <!-- Lista de insumos recién ingresados -->
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">📋 Insumos recién ingresados</h5>
-        <table class="table table-striped">
-          <thead class="table-light">
-            <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Cantidad</th>
-              <th>Proveedor</th>
-              <th>Fecha</th>
-              <th>Comprobante</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Zanahoria</td>
-              <td>Verduras</td>
-              <td>50 kg</td>
-              <td>AgroPerú</td>
-              <td>2025-10-14</td>
-              <td><button class="btn btn-sm btn-outline-dark">📄 PDF</button></td>
-            </tr>
-            <tr>
-              <td>Agua mineral</td>
-              <td>Bebidas</td>
-              <td>100 unidades</td>
-              <td>Distribuidora Sur</td>
-              <td>2025-10-13</td>
-              <td><button class="btn btn-sm btn-outline-dark">📄 PDF</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<!-- Lista de insumos recién ingresados -->
+<div class="card shadow">
+  <div class="card-body">
+    <h5 class="card-title">📋 Insumos recién ingresados</h5>
+    <table class="table table-striped">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Cantidad</th>
+          <th>Fecha</th>
+          <th>Comprobante</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Zanahoria</td>
+          <td>Verduras</td>
+          <td>50 kg</td>
+          <td>2025-10-14</td>
+          <td><button class="btn btn-sm btn-outline-dark">📄 PDF</button></td>
+        </tr>
+        <tr>
+          <td>Agua mineral</td>
+          <td>Bebidas</td>
+          <td>100 unidades</td>
+          <td>2025-10-13</td>
+          <td><button class="btn btn-sm btn-outline-dark">📄 PDF</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
     <!-- Volver -->
     <div class="text-center mt-4">
