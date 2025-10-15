@@ -18,7 +18,11 @@
   <div class="card-body">
     <h5 class="card-title">🔍 Filtros de búsqueda</h5>
     <form class="row g-3">
-      <div class="col-md-6">
+      <div class="col-md-3">
+        <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
+        <input type="text" class="form-control" id="nombreInsumo" placeholder="Ej. Tomate">
+      </div>
+      <div class="col-md-3">
         <label for="categoria" class="form-label">Categoría</label>
         <select id="categoria" class="form-select">
           <option selected>Todos</option>
@@ -27,7 +31,11 @@
           <option>Bebidas</option>
         </select>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
+        <label for="proveedor" class="form-label">Proveedor</label>
+        <input type="text" class="form-control" id="proveedor" placeholder="Ej. AgroPerú">
+      </div>
+      <div class="col-md-3">
         <label for="estadoStock" class="form-label">Estado de stock</label>
         <select id="estadoStock" class="form-select">
           <option selected>Todos</option>
@@ -48,16 +56,16 @@
       <div class="card-body">
         <h5 class="card-title">📋 Listado de insumos</h5>
         <table class="table table-hover">
-          <thead class="table-light">
-            <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Proveedor</th>
-              <th>Cantidad</th>
-              <th>Fecha de vencimiento</th>
-              <th>Estado de stock</th>
-            </tr>
-          </thead>
+<thead class="table-light">
+  <tr>
+    <th>Nombre <button class="btn btn-sm btn-link p-0">⬆️⬇️</button></th>
+    <th>Categoría</th>
+    <th>Proveedor</th>
+    <th>Cantidad <button class="btn btn-sm btn-link p-0">⬆️⬇️</button></th>
+    <th>Fecha de vencimiento</th>
+    <th>Estado de stock</th>
+  </tr>
+</thead>
           <tbody>
             <tr>
               <td>Tomate</td>
