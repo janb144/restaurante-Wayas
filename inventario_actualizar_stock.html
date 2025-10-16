@@ -15,49 +15,53 @@
   <div class="container py-5">
     <h2 class="text-center mb-4 title-wayas">🛠️ Gestión de Insumos</h2>
 
-    <!-- Formulario para agregar nuevo insumo -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">➕ Agregar nuevo insumo</h5>
-        <form id="formNuevoInsumo" class="row g-3">
-          <div class="col-md-4">
-            <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
-            <input type="text" class="form-control" id="nombreInsumo" required>
-          </div>
-          <div class="col-md-4">
-            <label for="categoriaInsumo" class="form-label">Categoría</label>
-            <select class="form-select" id="categoriaInsumo">
-              <option>Verduras</option>
-              <option>Carnes</option>
-              <option>Frutas</option>
-              <option>Otros</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="unidadMedida" class="form-label">Unidad de medida</label>
-            <input type="text" class="form-control" id="unidadMedida" placeholder="Ej. kg, litros, unidades" required>
-          </div>
-          <div class="col-md-6">
-            <label for="proveedor" class="form-label">Proveedor (opcional)</label>
-            <input type="text" class="form-control" id="proveedor">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Configurar estado de stock</label>
-            <div class="input-group">
-              <span class="input-group-text">Bajo</span>
-              <input type="number" class="form-control" placeholder="Ej. 5" required>
-              <span class="input-group-text">Moderado</span>
-              <input type="number" class="form-control" placeholder="Ej. 10" required>
-              <span class="input-group-text">Suficiente</span>
-              <input type="number" class="form-control" placeholder="Ej. 20" required>
-            </div>
-          </div>
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">Guardar insumo</button>
-          </div>
-        </form>
+<!-- Formulario para agregar nuevo insumo -->
+<div class="card mb-4 shadow">
+  <div class="card-body">
+    <h5 class="card-title">➕ Agregar nuevo insumo</h5>
+    <form id="formNuevoInsumo" class="row g-3">
+      <div class="col-md-4">
+        <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
+        <input type="text" class="form-control" id="nombreInsumo" required>
       </div>
-    </div>
+      <div class="col-md-4">
+        <label for="categoriaInsumo" class="form-label">Categoría</label>
+        <select class="form-select" id="categoriaInsumo">
+          <option>Verduras</option>
+          <option>Carnes</option>
+          <option>Frutas</option>
+          <option>Otros</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="unidadMedida" class="form-label">Unidad de medida</label>
+        <input type="text" class="form-control" id="unidadMedida" placeholder="Ej. kg, litros, unidades" required>
+      </div>
+      <div class="col-md-6">
+        <label for="proveedor" class="form-label">Proveedor (opcional)</label>
+        <input type="text" class="form-control" id="proveedor">
+      </div>
+      <div class="col-md-6">
+        <label for="fechaVencimiento" class="form-label">Fecha de vencimiento (opcional)</label>
+        <input type="date" class="form-control" id="fechaVencimiento">
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Configurar estado de stock</label>
+        <div class="input-group">
+          <span class="input-group-text">Bajo</span>
+          <input type="number" class="form-control" placeholder="Ej. 5" required>
+          <span class="input-group-text">Moderado</span>
+          <input type="number" class="form-control" placeholder="Ej. 10" required>
+          <span class="input-group-text">Suficiente</span>
+          <input type="number" class="form-control" placeholder="Ej. 20" required>
+        </div>
+      </div>
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary">Guardar insumo</button>
+      </div>
+    </form>
+  </div>
+</div>
 
     <!-- Filtros para editar insumos -->
     <div class="row mb-3">
@@ -81,68 +85,84 @@
       </div>
     </div>
 
-    <!-- Tabla para editar insumos existentes -->
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">✏️ Editar insumos existentes</h5>
-        <table class="table table-bordered table-hover">
-          <thead class="table-light">
-            <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Unidad</th>
-              <th>Proveedor</th>
-              <th>Estado</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="text" class="form-control" value="Tomate"></td>
-              <td>
-                <select class="form-select">
-                  <option selected>Verduras</option>
-                  <option>Carnes</option>
-                  <option>Frutas</option>
-                  <option>Otros</option>
-                </select>
-              </td>
-              <td><input type="text" class="form-control" value="kg"></td>
-              <td><input type="text" class="form-control" value="Distribuidora Lima"></td>
-              <td>
-                <select class="form-select">
-                  <option>Suficiente</option>
-                  <option>Moderado</option>
-                  <option>Bajo</option>
-                </select>
-              </td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr>
-              <td><input type="text" class="form-control" value="Pollo"></td>
-              <td>
-                <select class="form-select">
-                  <option>Verduras</option>
-                  <option selected>Carnes</option>
-                  <option>Frutas</option>
-                  <option>Otros</option>
-                </select>
-              </td>
-              <td><input type="text" class="form-control" value="kg"></td>
-              <td><input type="text" class="form-control" value="Carnes del Norte"></td>
-              <td>
-                <select class="form-select">
-                  <option>Suficiente</option>
-                  <option selected>Moderado</option>
-                  <option>Bajo</option>
-                </select>
-              </td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<!-- Tabla para editar insumos existentes -->
+<div class="card shadow">
+  <div class="card-body">
+    <h5 class="card-title">✏️ Editar insumos existentes</h5>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Unidad</th>
+          <th>Proveedor</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" class="form-control" value="Tomate"></td>
+          <td>
+            <select class="form-select">
+              <option selected>Verduras</option>
+              <option>Carnes</option>
+              <option>Frutas</option>
+              <option>Otros</option>
+            </select>
+          </td>
+          <td><input type="text" class="form-control" value="kg"></td>
+          <td><input type="text" class="form-control" value="Distribuidora Lima"></td>
+          <td>
+            <select class="form-select">
+              <option>Suficiente</option>
+              <option>Moderado</option>
+              <option>Bajo</option>
+            </select>
+          </td>
+          <td class="d-flex gap-2">
+            <button class="btn btn-sm btn-warning">Actualizar</button>
+            <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Tomate')">Eliminar</button>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" class="form-control" value="Pollo"></td>
+          <td>
+            <select class="form-select">
+              <option>Verduras</option>
+              <option selected>Carnes</option>
+              <option>Frutas</option>
+              <option>Otros</option>
+            </select>
+          </td>
+          <td><input type="text" class="form-control" value="kg"></td>
+          <td><input type="text" class="form-control" value="Carnes del Norte"></td>
+          <td>
+            <select class="form-select">
+              <option>Suficiente</option>
+              <option selected>Moderado</option>
+              <option>Bajo</option>
+            </select>
+          </td>
+          <td class="d-flex gap-2">
+            <button class="btn btn-sm btn-warning">Actualizar</button>
+            <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Pollo')">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Script de confirmación de eliminación -->
+<script>
+  function confirmarEliminacion(nombre) {
+    if (confirm(`¿Estás seguro de que deseas eliminar el insumo "${nombre}" del sistema? Esta acción no se puede deshacer.`)) {
+      alert(`✅ Insumo "${nombre}" eliminado correctamente.`);
+      // Aquí iría la lógica para eliminar el insumo de la base de datos
+    }
+  }
+</script>
   </div>
 
   <!-- Validación de duplicados -->
