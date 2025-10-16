@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrar Compra</title>
+  <title>Registrar compra en el Sistema</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Estilos personalizados -->
@@ -11,135 +11,100 @@
 </head>
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4 title-wayas">🧾 Registrar Compra</h2>
+    <h2 class="text-center mb-4 title-wayas">🧾 Registrar Compra en el Sistema</h2>
 
     <!-- Formulario de compra -->
-    <div class="card mb-4 shadow">
+    <div class="card shadow mb-4">
       <div class="card-body">
-        <h5 class="card-title">📝 Datos de la compra</h5>
-        <form class="row g-3">
-          <div class="col-md-6">
+        <form id="formCompra" class="row g-3">
+          <div class="col-md-4">
+            <label for="codigoRequerimiento" class="form-label">Código de requerimiento</label>
+            <select class="form-select" id="codigoRequerimiento" required>
+              <option selected disabled>Seleccionar...</option>
+              <option>REQ-001</option>
+              <option>REQ-002</option>
+              <option>REQ-003</option>
+              <option>REQ-004</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="fechaCompra" class="form-label">Fecha de compra</label>
+            <input type="date" class="form-control" id="fechaCompra" required>
+          </div>
+          <div class="col-md-4">
             <label for="proveedor" class="form-label">Proveedor</label>
-            <select id="proveedor" class="form-select">
-              <option selected>Seleccionar proveedor</option>
-              <option>Distribuidora Sur</option>
-              <option>AgroPerú</option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label for="fechaCompra" class="form-label">Fecha</label>
-            <input type="date" class="form-control" id="fechaCompra">
-          </div>
-          <div class="col-md-3">
-            <label for="monto" class="form-label">Monto total (S/)</label>
-            <input type="number" class="form-control" id="monto" placeholder="Ej. 450.00">
+            <input type="text" class="form-control" id="proveedor" required>
           </div>
           <div class="col-md-4">
-            <label for="metodoPago" class="form-label">Método de pago</label>
-            <select id="metodoPago" class="form-select">
-              <option>Efectivo</option>
-              <option>Transferencia</option>
-              <option>Tarjeta</option>
-            </select>
+            <label for="montoTotal" class="form-label">Monto total (S/.)</label>
+            <input type="number" class="form-control" id="montoTotal" required>
           </div>
-          <div class="col-md-4">
-            <label for="factura" class="form-label">N° Factura / Boleta</label>
-            <input type="text" class="form-control" id="factura" placeholder="Ej. F001-123456">
-          </div>
-          <div class="col-md-4">
-            <label for="requerimiento" class="form-label">Requerimiento aprobado</label>
-            <select id="requerimiento" class="form-select">
-              <option selected>Seleccionar requerimiento</option>
-              <option>REQ-2025-001</option>
-              <option>REQ-2025-002</option>
-            </select>
+          <div class="col-md-8">
+            <label for="detalleInsumos" class="form-label">Detalle de insumos comprados</label>
+            <textarea class="form-control" id="detalleInsumos" rows="3" placeholder="Ej. Tomate - 12 kg, Pollo - 8 kg" required></textarea>
           </div>
           <div class="col-12 text-end">
-            <button type="submit" class="btn btn-success">Registrar compra</button>
+            <button type="submit" class="btn btn-primary">Registrar compra</button>
           </div>
         </form>
       </div>
     </div>
-
-    <!-- Confirmación de recepción -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">📦 Confirmar recepción de insumos</h5>
-        <table class="table table-bordered">
-          <thead class="table-light">
-            <tr>
-              <th>Insumo</th>
-              <th>Cantidad esperada</th>
-              <th>Cantidad recibida</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Pollo</td>
-              <td>35 kg</td>
-              <td><input type="number" class="form-control" value="35"></td>
-              <td><span class="badge bg-success">Completo</span></td>
-            </tr>
-            <tr>
-              <td>Lechuga</td>
-              <td>25 kg</td>
-              <td><input type="number" class="form-control" value="20"></td>
-              <td><span class="badge bg-warning text-dark">Incompleto</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="text-end">
-          <button class="btn btn-outline-secondary">🔄 Actualizar inventario</button>
-          <button class="btn btn-outline-dark">📄 Generar comprobante PDF</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Historial de compras -->
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">📚 Historial de compras realizadas</h5>
-        <table class="table table-striped">
-          <thead class="table-light">
-            <tr>
-              <th>Fecha</th>
-              <th>Proveedor</th>
-              <th>Monto</th>
-              <th>Factura</th>
-              <th>Estado</th>
-              <th>Ver</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2025-10-12</td>
-              <td>Distribuidora Sur</td>
-              <td>S/ 450.00</td>
-              <td>F001-123456</td>
-              <td>Completa</td>
-              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-            </tr>
-            <tr>
-              <td>2025-10-08</td>
-              <td>AgroPerú</td>
-              <td>S/ 320.00</td>
-              <td>B002-987654</td>
-              <td>Incompleta</td>
-              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Volver -->
-    <div class="text-center mt-4">
-      <a href="gestion_compra.html" class="btn btn-secondary">⬅ Volver a Gestión de Compra</a>
-    </div>
+    <!-- Historial de compras registradas -->
+<div class="card shadow mt-5">
+  <div class="card-body">
+    <h5 class="card-title">📚 Historial de compras registradas</h5>
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Código</th>
+          <th>Fecha</th>
+          <th>Proveedor</th>
+          <th>Monto (S/.)</th>
+          <th>Estado</th>
+          <th>Ver detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>REQ-001</td>
+          <td>2025-10-15</td>
+          <td>Distribuidora Lima</td>
+          <td>180.00</td>
+          <td><span class="badge bg-success">Comprado</span></td>
+          <td><button class="btn btn-sm btn-outline-secondary">👁️</button></td>
+        </tr>
+        <tr>
+          <td>REQ-002</td>
+          <td>2025-10-14</td>
+          <td>Frutas del Norte</td>
+          <td>95.00</td>
+          <td><span class="badge bg-success">Comprado</span></td>
+          <td><button class="btn btn-sm btn-outline-secondary">👁️</button></td>
+        </tr>
+        <tr>
+          <td>REQ-003</td>
+          <td>2025-10-13</td>
+          <td>Mariscos Trujillo</td>
+          <td>150.00</td>
+          <td><span class="badge bg-success">Comprado</span></td>
+          <td><button class="btn btn-sm btn-outline-secondary">👁️</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Confirmación -->
+    <script>
+      document.getElementById("formCompra").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const codigo = document.getElementById("codigoRequerimiento").value;
+        alert(`✅ Compra registrada correctamente.\nRequerimiento ${codigo} marcado como COMPRADO.\nInventario pendiente de actualización.`);
+        // Aquí iría la lógica para guardar en base de datos y cambiar estado del requerimiento
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
 </body>
 </html>
