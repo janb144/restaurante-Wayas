@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,58 +10,74 @@
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="container py-5">
     <h2 class="text-center mb-4 title-wayas">📦 Generar lista de requerimientos</h2>
 
-<!-- Sección: Insumos con stock bajo -->
-<div class="card mb-4 shadow">
-  <div class="card-body">
-    <h5 class="card-title">⚠️ Insumos con stock bajo</h5>
-    <table class="table table-bordered">
-      <thead class="table-light">
-        <tr>
-          <th>Nombre</th>
-          <th>Cantidad actual</th>
-          <th>Agregar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Lechuga</td>
-          <td>5 kg</td>
-          <td><button class="btn btn-sm btn-success">➕ Agregar</button></td>
-        </tr>
-        <tr>
-          <td>Pollo</td>
-          <td>10 kg</td>
-          <td><button class="btn btn-sm btn-success">➕ Agregar</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+    <!-- Sección: Insumos con stock bajo -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">⚠️ Insumos con stock bajo</h5>
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Cantidad actual</th>
+              <th>Agregar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lechuga</td>
+              <td>5 kg</td>
+              <td><button class="btn btn-sm btn-success">➕ Agregar</button></td>
+            </tr>
+            <tr>
+              <td>Pollo</td>
+              <td>10 kg</td>
+              <td><button class="btn btn-sm btn-success">➕ Agregar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <!-- Sección: Agregar insumos manualmente -->
     <div class="card mb-4 shadow">
       <div class="card-body">
         <h5 class="card-title">➕ Agregar insumo manualmente</h5>
         <form class="row g-3">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
             <input type="text" class="form-control" id="nombreInsumo" placeholder="Ej. Tomate">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="cantidad" class="form-label">Cantidad requerida</label>
             <input type="number" class="form-control" id="cantidad" placeholder="Ej. 30">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <label for="unidad" class="form-label">Unidad</label>
             <select id="unidad" class="form-select">
               <option>kg</option>
               <option>litros</option>
               <option>unidades</option>
             </select>
+          </div>
+          <div class="col-md-3">
+            <label for="proveedor" class="form-label">Proveedor</label>
+            <div class="input-group">
+              <select id="proveedor" class="form-select">
+                <option selected>Seleccionar proveedor</option>
+                <option>AgroPerú</option>
+                <option>Distribuidora Sur</option>
+                <option>Frutas del Norte</option>
+              </select>
+              <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
+                data-bs-target="#modalDesempenoProveedor">
+                📊
+              </button>
+            </div>
           </div>
           <div class="col-12 text-end">
             <button type="submit" class="btn btn-primary">Agregar a requerimiento</button>
@@ -73,6 +90,21 @@
     <div class="card mb-4 shadow">
       <div class="card-body">
         <h5 class="card-title">📋 Requerimiento actual</h5>
+
+        <!-- Filtro por proveedor -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="filtroProveedor" class="form-label">Filtrar por proveedor</label>
+            <select id="filtroProveedor" class="form-select">
+              <option selected>Todos</option>
+              <option>AgroPerú</option>
+              <option>Distribuidora Sur</option>
+              <option>Frutas del Norte</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabla de requerimientos -->
         <table class="table table-hover">
           <thead class="table-light">
             <tr>
@@ -80,7 +112,8 @@
               <th>Cantidad</th>
               <th>Unidad</th>
               <th>Área</th>
-              <th>Eliminar</th>
+              <th>Proveedor</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -89,25 +122,41 @@
               <td>25</td>
               <td>kg</td>
               <td>Cocina</td>
-              <td><button class="btn btn-sm btn-danger">🗑️</button></td>
+              <td>AgroPerú</td>
+              <td>
+                <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                  data-bs-target="#modalCambiarProveedor">
+                  ¿Cambiar proveedor?
+                </button>
+                <button class="btn btn-sm btn-danger">🗑️</button>
+              </td>
             </tr>
             <tr>
               <td>Tomate</td>
               <td>30</td>
               <td>kg</td>
               <td>Cocina</td>
-              <td><button class="btn btn-sm btn-danger">🗑️</button></td>
+              <td>Distribuidora Sur</td>
+              <td>
+                <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
+                  data-bs-target="#modalCambiarProveedor">
+                  ¿Cambiar proveedor?
+                </button>
+                <button class="btn btn-sm btn-danger">🗑️</button>
+              </td>
             </tr>
           </tbody>
         </table>
 
         <!-- Acciones -->
-        <div class="d-flex justify-content-between mt-4">
-          <div>
+        <div class="d-flex justify-content-between mt-4 flex-wrap gap-2">
+          <div class="d-flex gap-2">
             <button class="btn btn-outline-secondary">💾 Guardar como borrador</button>
+
           </div>
-          <div>
-            <button class="btn btn-outline-success">✅ Validar y enviar requerimiento</button>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary">📥 Exportar requerimiento</button>
+            <button class="btn btn-outline-dark">🖨️ Imprimir requerimiento</button>
           </div>
         </div>
       </div>
@@ -150,7 +199,196 @@
     </div>
   </div>
 
+  <!-- Modal: Cambiar proveedor -->
+  <div class="modal fade" id="modalCambiarProveedor" tabindex="-1" aria-labelledby="modalProveedorLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalProveedorLabel">🔄 Cambiar proveedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label for="nuevoProveedor" class="form-label">Seleccionar nuevo proveedor</label>
+          <select id="nuevoProveedor" class="form-select mb-4">
+            <option selected>AgroPerú</option>
+            <option>Distribuidora Sur</option>
+            <option>Frutas del Norte</option>
+          </select>
+
+          <!-- Historial de calificaciones -->
+          <h6>📚 Historial de calificaciones del proveedor seleccionado</h6>
+          <table class="table table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>Compra</th>
+                <th>Fecha</th>
+                <th>Calidad</th>
+                <th>Peso</th>
+                <th>Puntualidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>C-2025-001</td>
+                <td>2025-10-14</td>
+                <td>Bueno</td>
+                <td>Regular</td>
+                <td>Bueno</td>
+              </tr>
+              <tr>
+                <td>C-2025-002</td>
+                <td>2025-10-10</td>
+                <td>Regular</td>
+                <td>Malo</td>
+                <td>Regular</td>
+              </tr>
+              <tr>
+                <td>C-2025-003</td>
+                <td>2025-09-28</td>
+                <td>Bueno</td>
+                <td>Bueno</td>
+                <td>Excelente</td>
+              </tr>
+              <tr>
+                <td>C-2025-004</td>
+                <td>2025-09-15</td>
+                <td>Excelente</td>
+                <td>Bueno</td>
+                <td>Puntual</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success">Confirmar cambio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Modal: Historial de calificaciones por proveedor -->
+  <div class="modal fade" id="modalDesempenoProveedor" tabindex="-1" aria-labelledby="modalDesempenoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDesempenoLabel">📚 Historial de calificaciones por proveedor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>Proveedor</th>
+                <!-- Modal: Cambiar proveedor -->
+                <div class="modal fade" id="modalCambiarProveedor" tabindex="-1" aria-labelledby="modalProveedorLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalProveedorLabel">🔄 Cambiar proveedor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                      <div class="modal-body">
+                        <label for="nuevoProveedor" class="form-label">Seleccionar nuevo proveedor</label>
+                        <select id="nuevoProveedor" class="form-select mb-4">
+                          <option selected>AgroPerú</option>
+                          <option>Distribuidora Sur</option>
+                          <option>Frutas del Norte</option>
+                        </select>
+
+                        <!-- Historial de calificaciones -->
+                        <h6>📚 Historial de calificaciones del proveedor seleccionado</h6>
+                        <table class="table table-striped">
+                          <thead class="table-light">
+                            <tr>
+                              <th>Compra</th>
+                              <th>Fecha</th>
+                              <th>Calidad</th>
+                              <th>Peso</th>
+                              <th>Puntualidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>C-2025-001</td>
+                              <td>2025-10-14</td>
+                              <td>Bueno</td>
+                              <td>Regular</td>
+                              <td>Bueno</td>
+                            </tr>
+                            <tr>
+                              <td>C-2025-002</td>
+                              <td>2025-10-10</td>
+                              <td>Regular</td>
+                              <td>Malo</td>
+                              <td>Regular</td>
+                            </tr>
+                            <tr>
+                              <td>C-2025-003</td>
+                              <td>2025-09-28</td>
+                              <td>Bueno</td>
+                              <td>Bueno</td>
+                              <td>Excelente</td>
+                            </tr>
+                            <tr>
+                              <td>C-2025-004</td>
+                              <td>2025-09-15</td>
+                              <td>Excelente</td>
+                              <td>Bueno</td>
+                              <td>Puntual</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success">Confirmar cambio</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <th>Compra</th>
+                <th>Fecha</th>
+                <th>Calidad</th>
+                <th>Peso</th>
+                <th>Puntualidad</th>
+                <th>Ver</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AgroPerú</td>
+                <td>C-2025-001</td>
+                <td>2025-10-14</td>
+                <td>Bueno</td>
+                <td>Regular</td>
+                <td>Bueno</td>
+                <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+              </tr>
+              <tr>
+                <td>Distribuidora Sur</td>
+                <td>C-2025-002</td>
+                <td>2025-10-10</td>
+                <td>Regular</td>
+                <td>Malo</td>
+                <td>Regular</td>
+                <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
