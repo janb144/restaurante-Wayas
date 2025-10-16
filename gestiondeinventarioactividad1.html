@@ -4,238 +4,158 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gestión de Inventario - Comparación</title>
+  <title>Gestión de Insumos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .discrepancia {
-      background-color: #fff3cd;
-    }
-  </style>
 </head>
 
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4">📦 Comparación de Inventario</h2>
+    <h2 class="text-center mb-4">🛠️ Gestión de Insumos</h2>
 
-    <!-- Filtros -->
-    <div class="row mb-4">
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="🔍 Buscar insumo...">
-      </div>
-      <div class="col-md-4">
-        <select class="form-select">
-          <option selected>Filtrar por categoría</option>
-          <option>Verduras y Tubérculos</option>
-          <option>Carnes</option>
-          <option>Bebidas</option>
-          <option>Otros</option>
-        </select>
-      </div>
-      <div class="col-md-4 text-end">
-        <button class="btn btn-outline-success" onclick="window.print()">📄 Imprimir reporte de diferencias</button>
+    <!-- Formulario para agregar nuevo insumo -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">➕ Agregar nuevo insumo</h5>
+        <form id="formNuevoInsumo" class="row g-3">
+          <div class="col-md-4">
+            <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
+            <input type="text" class="form-control" id="nombreInsumo" required>
+          </div>
+          <div class="col-md-4">
+            <label for="categoriaInsumo" class="form-label">Categoría</label>
+            <select class="form-select" id="categoriaInsumo">
+              <option>Verduras</option>
+              <option>Carnes</option>
+              <option>Frutas</option>
+              <option>Otros</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="unidadMedida" class="form-label">Unidad de medida</label>
+            <input type="text" class="form-control" id="unidadMedida" placeholder="Ej. kg, litros, unidades" required>
+          </div>
+          <div class="col-md-6">
+            <label for="proveedor" class="form-label">Proveedor (opcional)</label>
+            <input type="text" class="form-control" id="proveedor">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Configurar estado de stock</label>
+            <div class="input-group">
+              <span class="input-group-text">Bajo</span>
+              <input type="number" class="form-control" placeholder="Ej. 5" required>
+              <span class="input-group-text">Moderado</span>
+              <input type="number" class="form-control" placeholder="Ej. 10" required>
+              <span class="input-group-text">Suficiente</span>
+              <input type="number" class="form-control" placeholder="Ej. 20" required>
+            </div>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary">Guardar insumo</button>
+          </div>
+        </form>
       </div>
     </div>
 
-    <!-- Tabla de inventario -->
+    <!-- Filtros para editar insumos -->
+<div class="row mb-3">
+  <div class="col-md-4">
+    <label for="buscarInsumo" class="form-label">Buscar insumo</label>
+    <input type="text" class="form-control" id="buscarInsumo" placeholder="Ej. Tomate">
+  </div>
+  <div class="col-md-4">
+    <label for="filtrarCategoria" class="form-label">Filtrar por categoría</label>
+    <select class="form-select" id="filtrarCategoria">
+      <option value="">Todas</option>
+      <option>Verduras</option>
+      <option>Carnes</option>
+      <option>Frutas</option>
+      <option>Otros</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label for="filtrarProveedor" class="form-label">Filtrar por proveedor</label>
+    <input type="text" class="form-control" id="filtrarProveedor" placeholder="Ej. Distribuidora Lima">
+  </div>
+</div>
+    
+    <!-- Tabla para editar insumos existentes -->
     <div class="card shadow">
       <div class="card-body">
+        <h5 class="card-title">✏️ Editar insumos existentes</h5>
         <table class="table table-bordered table-hover">
-          <!-- Tabla de inventario actualizada -->
           <thead class="table-light">
             <tr>
-              <th>Insumo</th>
+              <th>Nombre</th>
               <th>Categoría</th>
-              <th>Stock actual</th>
-              <th>Estado de stock</th>
-              <th>Conteo físico</th>
-              <th>Diferencia</th>
-              <th>Observación</th>
+              <th>Unidad</th>
+              <th>Proveedor</th>
+              <th>Estado</th>
               <th>Acción</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="discrepancia">
-              <td>Tomate</td>
-              <td>Verduras y Tubérculos</td>
-              <td>5 kg</td>
-              <td><span class="badge bg-warning text-dark">Moderado</span></td>
-              <td><input type="text" class="form-control" value="3 Kg"></td>
-              <td>-2 kg</td>
-              <td><input type="text" class="form-control" placeholder="Insumo malogrado"></td>
+            <tr>
+              <td><input type="text" class="form-control" value="Tomate"></td>
+              <td>
+                <select class="form-select">
+                  <option selected>Verduras</option>
+                  <option>Carnes</option>
+                  <option>Frutas</option>
+                  <option>Otros</option>
+                </select>
+              </td>
+              <td><input type="text" class="form-control" value="kg"></td>
+              <td><input type="text" class="form-control" value="Distribuidora Lima"></td>
+              <td>
+                <select class="form-select">
+                  <option>Suficiente</option>
+                  <option>Moderado</option>
+                  <option>Bajo</option>
+                </select>
+              </td>
               <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
             </tr>
             <tr>
-              <td>Arroz</td>
-              <td>Otros</td>
-              <td>30 kg</td>
-              <td><span class="badge bg-success">Suficiente</span></td>
-              <td><input type="text" class="form-control" value="30 Kg"></td>
-              <td>0 kg</td>
-              <td><input type="text" class="form-control"></td>
+              <td><input type="text" class="form-control" value="Pollo"></td>
+              <td>
+                <select class="form-select">
+                  <option>Verduras</option>
+                  <option selected>Carnes</option>
+                  <option>Frutas</option>
+                  <option>Otros</option>
+                </select>
+              </td>
+              <td><input type="text" class="form-control" value="kg"></td>
+              <td><input type="text" class="form-control" value="Carnes del Norte"></td>
+              <td>
+                <select class="form-select">
+                  <option>Suficiente</option>
+                  <option selected>Moderado</option>
+                  <option>Bajo</option>
+                </select>
+              </td>
               <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
             </tr>
-            <tr class="discrepancia">
-              <td>Pollo</td>
-              <td>Carnes</td>
-              <td>4 kg</td>
-              <td><span class="badge bg-danger">Bajo</span></td>
-              <td><input type="text" class="form-control" value="2 Kg"></td>
-              <td>2 kg</td>
-              <td><input type="text" class="form-control" placeholder="Malogrado"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr>
-              <td>Agua mineral</td>
-              <td>Bebidas</td>
-              <td>25 botellas</td>
-              <td><span class="badge bg-warning text-dark">Moderado</span></td>
-              <td><input type="number" class="form-control" value="25"></td>
-              <td>0</td>
-              <td><input type="text" class="form-control"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr>
-              <td>Servilletas</td>
-              <td>Otros</td>
-              <td>15 unidades</td>
-              <td><span class="badge bg-success">Suficiente</span></td>
-              <td><input type="number" class="form-control" value="13"></td>
-              <td>-2</td>
-              <td><input type="text" class="form-control" placeholder="Uso excesivo"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr class="discrepancia">
-              <td>Zanahoria</td>
-              <td>Verduras y Tubérculos</td>
-              <td>4 kg</td>
-              <td><span class="badge bg-success">Suficiente</span></td>
-              <td><input type="text" class="form-control" value="2.5 Kg"></td>
-              <td>-1.5 kg</td>
-              <td><input type="text" class="form-control" placeholder="Pérdida por mala manipulación"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr>
-              <td>Res</td>
-              <td>Carnes</td>
-              <td>6 kg</td>
-              <td><span class="badge bg-success">Suficiente</span></td>
-              <td><input type="text" class="form-control" value="6 Kg"></td>
-              <td>0 kg</td>
-              <td><input type="text" class="form-control"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr class="discrepancia">
-              <td>Ketchup</td>
-              <td>Otros</td>
-              <td>4 Kg</td>
-              <td><span class="badge bg-warning text-dark">Moderado</span></td>
-              <td><input type="text" class="form-control" value="2 Kg"></td>
-              <td>-2 Kg</td>
-              <td><input type="text" class="form-control" placeholder="Vencido"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr>
-              <td>Detergente</td>
-              <td>Otros</td>
-              <td>15 litros</td>
-              <td><span class="badge bg-success">Suficiente</span></td>
-              <td><input type="number" class="form-control" value="15"></td>
-              <td>0</td>
-              <td><input type="text" class="form-control"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr class="discrepancia">
-              <td>Pescado</td>
-              <td>Carnes</td>
-              <td>7 kg</td>
-              <td><span class="badge bg-success">Suficiente</span></td>
-              <td><input type="text" class="form-control" value="5 Kg"></td>
-              <td>2 kg</td>
-              <td><input type="text" class="form-control" placeholder="Mal olor"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-            <tr class="discrepancia">
-              <td>Papa amarilla</td>
-              <td>Verduras y Tubérculos</td>
-              <td>4 kg</td>
-              <td><span class="badge bg-danger">Bajo</span></td>
-              <td><input type="text" class="form-control" value="4 Kg"></td>
-              <td>0</td>
-              <td><input type="text" class="form-control"></td>
-              <td><button class="btn btn-sm btn-warning">Actualizar</button></td>
-            </tr>
-
           </tbody>
         </table>
-
-        <!-- Botón de guardar cambios -->
-        <div class="text-end mt-3">
-          <button class="btn btn-primary" onclick="confirmarActualizacion()">💾 Guardar cambios y actualizar
-            inventario</button>
-        </div>
-        <!-- Insumos con stock bajo -->
-        <div class="card mt-5 shadow">
-          <div class="card-body">
-            <h5 class="card-title">📉 Insumos con stock bajo</h5>
-            <table class="table table-bordered">
-              <thead class="table-light">
-                <tr>
-                  <th>Insumo</th>
-                  <th>Categoría</th>
-                  <th>Stock actual</th>
-                  <th>Estado</th>
-                  <th>Seleccionar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Pollo</td>
-                  <td>Carnes</td>
-                  <td>2 kg</td>
-                  <td><span class="badge bg-danger">Bajo</span></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <td>Papa amarilla</td>
-                  <td>Verduras y Tubérculos</td>
-                  <td>4 kg</td>
-                  <td><span class="badge bg-danger">Bajo</span></td>
-                  <td><input type="checkbox"></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="d-flex justify-content-end gap-2">
-              <button class="btn btn-outline-primary" onclick="confirmarRequerimiento()">📤 Enviar requerimiento a la
-                gestión de compras</button>
-              <button class="btn btn-outline-success" onclick="window.print()">📄 Exportar o imprimir
-                requerimiento</button>
-            </div>
-
-
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
 
-  <!-- Script de confirmación -->
+  <!-- Validación de duplicados -->
   <script>
-    function confirmarActualizacion() {
-      if (confirm("¿Estás seguro de que deseas guardar los cambios y actualizar el inventario?")) {
-        alert("Inventario actualizado correctamente.");
+    document.getElementById("formNuevoInsumo").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const nuevoNombre = document.getElementById("nombreInsumo").value.trim().toLowerCase();
+      const insumosExistentes = ["tomate", "pollo"]; // Simulación de insumos ya registrados
+      if (insumosExistentes.includes(nuevoNombre)) {
+        alert("⚠️ El insumo ya está registrado en el sistema.");
+      } else {
+        alert("✅ Insumo guardado correctamente.");
+        // Aquí iría la lógica para guardar en base de datos
       }
-    }
+    });
   </script>
-  <!-- Script de confirmación -->
-  <script>
-    function confirmarRequerimiento() {
-      if (confirm("¿Deseas enviar el requerimiento de insumos a la gestión de compras?")) {
-        alert("Requerimiento enviado correctamente.");
-      }
-    }
-  </script>
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
