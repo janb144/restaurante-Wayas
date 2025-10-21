@@ -89,114 +89,142 @@
     </div>
 
     <!-- Sección: Lista de requerimientos -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">📋 Requerimiento actual</h5>
+<div class="card mb-4 shadow">
+  <div class="card-body">
+    <h5 class="card-title">📋 Requerimiento actual</h5>
 
-        <!-- Filtro por proveedor -->
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label for="filtroProveedor" class="form-label">Filtrar por proveedor</label>
-            <select id="filtroProveedor" class="form-select">
-              <option selected>Todos</option>
-              <option>AgroPerú</option>
-              <option>Distribuidora Sur</option>
-              <option>Frutas del Norte</option>
-            </select>
-          </div>
-        </div>
+    <!-- Filtro por proveedor (obligatorio para generar requerimiento) -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="filtroProveedor" class="form-label">Filtrar por proveedor <span class="text-danger">*</span></label>
+        <select id="filtroProveedor" class="form-select" required>
+          <option value="">Seleccione proveedor</option>
+          <option>AgroPerú</option>
+          <option>Distribuidora Sur</option>
+          <option>Frutas del Norte</option>
+        </select>
+      </div>
+    </div>
 
-        <!-- Tabla de requerimientos -->
-        <table class="table table-hover">
-          <thead class="table-light">
-            <tr>
-              <th>Insumo</th>
-              <th>Cantidad</th>
-              <th>Unidad</th>
-              <th>Área</th>
-              <th>Proveedor</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Lechuga</td>
-              <td>25</td>
-              <td>kg</td>
-              <td>Cocina</td>
-              <td>AgroPerú</td>
-              <td>
-                <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
-                  data-bs-target="#modalCambiarProveedor">
-                  ¿Cambiar proveedor?
-                </button>
-                <button class="btn btn-sm btn-danger">🗑️</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Tomate</td>
-              <td>30</td>
-              <td>kg</td>
-              <td>Cocina</td>
-              <td>Distribuidora Sur</td>
-              <td>
-                <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal"
-                  data-bs-target="#modalCambiarProveedor">
-                  ¿Cambiar proveedor?
-                </button>
-                <button class="btn btn-sm btn-danger">🗑️</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- Tabla de requerimientos (lista activa) -->
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Insumo</th>
+          <th>Cantidad</th>
+          <th>Unidad</th>
+          <th>Área</th>
+          <th>Proveedor</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lechuga</td>
+          <td>25</td>
+          <td>kg</td>
+          <td>Cocina</td>
+          <td>AgroPerú</td>
+          <td>
+            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalCambiarProveedor">
+              ¿Cambiar proveedor?
+            </button>
+            <button class="btn btn-sm btn-danger">🗑️</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Tomate</td>
+          <td>30</td>
+          <td>kg</td>
+          <td>Cocina</td>
+          <td>Distribuidora Sur</td>
+          <td>
+            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalCambiarProveedor">
+              ¿Cambiar proveedor?
+            </button>
+            <button class="btn btn-sm btn-danger">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-        <!-- Acciones -->
-        <div class="d-flex justify-content-between mt-4 flex-wrap gap-2">
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary">📝 Generar Requerimiento</button>
+    <!-- Acciones -->
+    <div class="d-flex justify-content-between mt-4 flex-wrap gap-2">
+      <div class="d-flex gap-2">
+        <!-- Botón corregido -->
+        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalOpcionesRequerimiento">
+          📤 Generar y enviar requerimiento
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-primary">📥 Exportar requerimiento</button>
-            <button class="btn btn-outline-dark">🖨️ Imprimir requerimiento</button>
-          </div>
+<!-- Modal: Opciones de descarga/imprimir -->
+<div class="modal fade" id="modalOpcionesRequerimiento" tabindex="-1" aria-labelledby="modalOpcionesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalOpcionesLabel">📤 Requerimiento generado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <p>El requerimiento ha sido enviado al historial. ¿Qué deseas hacer ahora?</p>
+        <div class="d-grid gap-2">
+          <button class="btn btn-outline-primary">📄 Descargar como PDF</button>
+          <button class="btn btn-outline-dark">🖨️ Imprimir requerimiento</button>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <!-- Historial -->
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">📚 Historial de requerimientos enviados</h5>
-        <table class="table table-striped">
-          <thead class="table-light">
-            <tr>
-              <th>Nro de Requerimiento</th>
-              <th>Fecha</th>
-              <th>Insumos</th>
-              <th>Estado</th>
-              <th>Ver</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>REQ-00125</td>
-              <td>10-10-2025</td>
-              <td>Lechuga, Pollo</td>
-              <td>Enviado</td>
-              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-            </tr>
-            <tr>
-              <td>REQ-00128</td>
-              <td>05-10-2025</td>
-              <td>Tomate, Cebolla</td>
-              <td>Borrador</td>
-              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="card shadow">
+  <div class="card-body">
+    <h5 class="card-title">📚 Historial de requerimientos enviados</h5>
+    <table class="table table-striped">
+      <thead class="table-light">
+        <tr>
+          <th>Nro de Requerimiento</th>
+          <th>Fecha</th>
+          <th>Insumos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>REQ-00125</td>
+          <td>10-10-2025</td>
+          <td>Lechuga, Pollo</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary">🔍 Ver</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmarEliminacion('REQ-00125')">🗑️ Eliminar</button>
+          </td>
+        </tr>
+        <tr>
+          <td>REQ-00128</td>
+          <td>05-10-2025</td>
+          <td>Tomate, Cebolla</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary">🔍 Ver</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="confirmarEliminacion('REQ-00128')">🗑️ Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Script de confirmación -->
+<script>
+  function confirmarEliminacion(codigo) {
+    if (confirm(`¿Estás seguro de que deseas eliminar el requerimiento ${codigo}? Esta acción no se puede deshacer.`)) {
+      // Aquí puedes agregar la lógica para eliminar el requerimiento del sistema
+      alert(`Requerimiento ${codigo} eliminado correctamente.`);
+    }
+  }
+</script>
 
     <!-- Volver -->
     <div class="text-center mt-4">
