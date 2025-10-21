@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrar Receta Borrador</title>
+  <title>Ajustar Receta</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4 title-wayas">📝 Registrar Receta Borrador</h2>
+    <h2 class="text-center mb-4 title-wayas">✏️ Ajustar Receta</h2>
 
-    <!-- Formulario de receta -->
+    <!-- Selección de receta editable -->
     <div class="card mb-4 shadow">
       <div class="card-body">
+        <h5 class="card-title">📋 Lista de Recetas Aprobadas</h5>
+        <form class="row g-3">
+          <div class="col-md-8">
+            <select class="form-select" id="selectorReceta" onchange="cargarRecetaAprobada(this.value)">
+              <option selected disabled>Seleccionar receta</option>
+              <option>Crema de zapallo</option>
+              <option>Lomo saltado</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Comentarios del administrador -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">💬 Comentarios del administrador</h5>
+        <p class="text-muted">“Faltan pasos de cocción y ajustar cantidad de zapallo para porciones grandes.”</p>
+      </div>
+    </div>
+
+    <!-- Edición de receta -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">🛠️ Editar receta</h5>
         <form class="row g-3">
           <div class="col-md-6">
-            <label for="nombreReceta" class="form-label">Nombre de la receta</label>
-            <input type="text" class="form-control" id="nombreReceta" placeholder="Ej. Lomo saltado">
+            <label for="nombreReceta" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreReceta">
           </div>
           <div class="col-md-6">
             <label for="categoria" class="form-label">Categoría</label>
@@ -32,13 +59,12 @@
           </div>
           <div class="col-md-12">
             <label for="descripcion" class="form-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" rows="2" placeholder="Breve descripción del plato..."></textarea>
+            <textarea class="form-control" id="descripcion" rows="2"></textarea>
           </div>
           <div class="col-md-3">
-            <label for="porciones" class="form-label">N° de porciones</label>
-            <input type="number" class="form-control" id="porciones" placeholder="Ej. 4">
+            <label for="porciones" class="form-label">N° de Porciones</label>
+            <input type="number" class="form-control" id="porciones">
           </div>
-        </form>
       </div>
     </div>
 
@@ -69,123 +95,63 @@
         <!-- Lista simulada -->
         <ul class="list-group mt-3">
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            500 g de carne de res
+            500 g de zapallo
             <button class="btn btn-sm btn-danger">🗑️</button>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            2 unidades de tomate
+            1 cebolla
             <button class="btn btn-sm btn-danger">🗑️</button>
           </li>
         </ul>
       </div>
     </div>
 
-<!-- Pasos de preparación -->
-<div class="card mb-4 shadow">
-  <div class="card-body">
-    <h5 class="card-title">👨‍🍳 Pasos de preparación</h5>
-    <label for="pasosReceta" class="form-label">Describe los pasos de preparación</label>
-    <textarea class="form-control" id="pasosReceta" rows="5" placeholder="Ej. 1. Cortar la carne en tiras finas. 2. Saltear con cebolla y tomate."></textarea>
-  </div>
-</div>
-
-    <!-- Acciones -->
-    <div class="d-flex justify-content-between mt-4">
-      <button class="btn btn-outline-secondary">🔍 Validar duplicado</button>
-      <button class="btn btn-success">💾 Guardar como borrador</button>
+    <div class="col-md-12">
+      <label for="pasosReceta" class="form-label">👨‍🍳 Pasos de preparación</label>
+      <textarea class="form-control" id="pasosReceta" rows="5"
+        placeholder="Ej. 1. Cortar el zapallo en cubos. 2. Saltear cebolla y agregar zapallo."></textarea>
     </div>
+    </form>
 
-    <!-- Recetas guardadas como borrador -->
-<div class="card shadow mt-5">
-  <div class="card-body">
-    <h5 class="card-title">📚 Recetas guardadas como borrador</h5>
-    <table class="table table-hover">
-      <thead class="table-light">
-        <tr>
-          <th>Nombre</th>
-          <th>Categoría</th>
-          <th>Porciones</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Lomo saltado</td>
-          <td>Plato principal</td>
-          <td>4</td>
-          <td class="d-flex gap-2">
-            <button class="btn btn-sm btn-warning" onclick="cargarReceta('Lomo saltado')">✏️ Editar</button>
-            <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Lomo saltado')">🗑️ Eliminar</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Ensalada fresca</td>
-          <td>Entrada</td>
-          <td>2</td>
-          <td class="d-flex gap-2">
-            <button class="btn btn-sm btn-warning" onclick="cargarReceta('Ensalada fresca')">✏️ Editar</button>
-            <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Ensalada fresca')">🗑️ Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+
+    <div class="text-end">
+      <button class="btn btn-outline-success">📤 Reenviar receta ajustada a validación</button>
+    </div>
 
     <!-- Volver -->
     <div class="text-center mt-4">
       <a href="gestion_recetas.html" class="btn btn-secondary">⬅ Volver a Gestión de Recetas</a>
     </div>
   </div>
+  <script>
+    function cargarRecetaAprobada(nombre) {
+      const recetas = {
+        "Crema de zapallo": {
+          nombre: "Crema de zapallo",
+          porciones: 4,
+          descripcion: "Crema suave de zapallo con especias.",
+          pasos: "1. Cortar el zapallo en cubos.\n2. Saltear cebolla y agregar zapallo.\n3. Cocinar hasta que esté suave.\n4. Licuar y servir caliente."
+        },
+        "Lomo saltado": {
+          nombre: "Lomo saltado",
+          porciones: 4,
+          descripcion: "Plato criollo con carne salteada.",
+          pasos: "1. Cortar la carne en tiras finas.\n2. Saltear con cebolla y tomate.\n3. Agregar papas fritas.\n4. Servir con arroz blanco."
+        }
+      };
 
-<script>
-  function cargarReceta(nombre) {
-    // Simulación de datos precargados
-    const recetas = {
-      "Lomo saltado": {
-        nombre: "Lomo saltado",
-        categoria: "Plato principal",
-        descripcion: "Plato criollo con carne salteada",
-        porciones: 4,
-        pasos: "1. Cortar la carne en tiras finas.\n2. Saltear con cebolla y tomate."
-      },
-      "Ensalada fresca": {
-        nombre: "Ensalada fresca",
-        categoria: "Entrada",
-        descripcion: "Mezcla de vegetales frescos",
-        porciones: 2,
-        pasos: "1. Lavar los vegetales.\n2. Cortar en trozos pequeños.\n3. Mezclar y servir."
+      const receta = recetas[nombre];
+      if (receta) {
+        document.getElementById("nombreReceta").value = receta.nombre;
+        document.getElementById("porciones").value = receta.porciones;
+        document.getElementById("descripcion").value = receta.descripcion;
+        document.getElementById("pasosReceta").value = receta.pasos;
       }
-    };
-
-    const receta = recetas[nombre];
-    if (receta) {
-      document.getElementById("nombreReceta").value = receta.nombre;
-      document.getElementById("categoria").value = receta.categoria;
-      document.getElementById("descripcion").value = receta.descripcion;
-      document.getElementById("porciones").value = receta.porciones;
-      document.getElementById("pasosReceta").value = receta.pasos;
-
-      // Mostrar botón de guardar cambios
-      const acciones = document.querySelector(".d-flex.justify-content-between.mt-4");
-      acciones.innerHTML = `
-        <button class="btn btn-outline-secondary">🔍 Validar duplicado</button>
-        <button class="btn btn-warning">💾 Guardar cambios</button>
-      `;
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }
-
-  function confirmarEliminacion(nombre) {
-    if (confirm(`¿Eliminar la receta "${nombre}"? Esta acción no se puede deshacer.`)) {
-      alert(`✅ Receta "${nombre}" eliminada correctamente.`);
-      // Aquí iría la lógica para eliminar la receta de la base de datos
-    }
-  }
-</script>
+  </script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
