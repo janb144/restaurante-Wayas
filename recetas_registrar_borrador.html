@@ -80,38 +80,108 @@
       </div>
     </div>
 
-    <!-- Pasos de preparación -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">👨‍🍳 Pasos de preparación</h5>
-        <form class="row g-3">
-          <div class="col-md-10">
-            <input type="text" class="form-control" placeholder="Ej. Cortar la carne en tiras finas">
-          </div>
-          <div class="col-md-2 text-end">
-            <button class="btn btn-outline-primary">➕ Agregar paso</button>
-          </div>
-        </form>
-
-        <!-- Lista simulada -->
-        <ol class="mt-3">
-          <li>Cortar la carne en tiras finas</li>
-          <li>Saltear con cebolla y tomate</li>
-        </ol>
-      </div>
-    </div>
+<!-- Pasos de preparación -->
+<div class="card mb-4 shadow">
+  <div class="card-body">
+    <h5 class="card-title">👨‍🍳 Pasos de preparación</h5>
+    <label for="pasosReceta" class="form-label">Describe los pasos de preparación</label>
+    <textarea class="form-control" id="pasosReceta" rows="5" placeholder="Ej. 1. Cortar la carne en tiras finas. 2. Saltear con cebolla y tomate."></textarea>
+  </div>
+</div>
 
     <!-- Acciones -->
     <div class="d-flex justify-content-between mt-4">
-      <button class="btn btn-outline-secondary">🔍 Validar duplicado</button>
       <button class="btn btn-success">💾 Guardar como borrador</button>
     </div>
+
+    <!-- Recetas guardadas como borrador -->
+<div class="card shadow mt-5">
+  <div class="card-body">
+    <h5 class="card-title">📚 Recetas guardadas como borrador</h5>
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Porciones</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lomo saltado</td>
+          <td>Plato principal</td>
+          <td>4</td>
+          <td class="d-flex gap-2">
+            <button class="btn btn-sm btn-warning" onclick="cargarReceta('Lomo saltado')">✏️ Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Lomo saltado')">🗑️ Eliminar</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Ensalada fresca</td>
+          <td>Entrada</td>
+          <td>2</td>
+          <td class="d-flex gap-2">
+            <button class="btn btn-sm btn-warning" onclick="cargarReceta('Ensalada fresca')">✏️ Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Ensalada fresca')">🗑️ Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
     <!-- Volver -->
     <div class="text-center mt-4">
       <a href="gestion_recetas.html" class="btn btn-secondary">⬅ Volver a Gestión de Recetas</a>
     </div>
   </div>
+
+<script>
+  function cargarReceta(nombre) {
+    // Simulación de datos precargados
+    const recetas = {
+      "Lomo saltado": {
+        nombre: "Lomo saltado",
+        categoria: "Plato principal",
+        descripcion: "Plato criollo con carne salteada",
+        porciones: 4,
+        pasos: "1. Cortar la carne en tiras finas.\n2. Saltear con cebolla y tomate."
+      },
+      "Ensalada fresca": {
+        nombre: "Ensalada fresca",
+        categoria: "Entrada",
+        descripcion: "Mezcla de vegetales frescos",
+        porciones: 2,
+        pasos: "1. Lavar los vegetales.\n2. Cortar en trozos pequeños.\n3. Mezclar y servir."
+      }
+    };
+
+    const receta = recetas[nombre];
+    if (receta) {
+      document.getElementById("nombreReceta").value = receta.nombre;
+      document.getElementById("categoria").value = receta.categoria;
+      document.getElementById("descripcion").value = receta.descripcion;
+      document.getElementById("porciones").value = receta.porciones;
+      document.getElementById("pasosReceta").value = receta.pasos;
+
+      // Mostrar botón de guardar cambios
+      const acciones = document.querySelector(".d-flex.justify-content-between.mt-4");
+      acciones.innerHTML = `
+        <button class="btn btn-warning">💾 Guardar cambios</button>
+      `;
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function confirmarEliminacion(nombre) {
+    if (confirm(`¿Eliminar la receta "${nombre}"? Esta acción no se puede deshacer.`)) {
+      alert(`✅ Receta "${nombre}" eliminada correctamente.`);
+      // Aquí iría la lógica para eliminar la receta de la base de datos
+    }
+  }
+</script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
