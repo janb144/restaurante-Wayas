@@ -1,143 +1,226 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Consultar Desempeño de Proveedor</title>
+  <title>Gestión de Insumos</title>
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4 title-wayas">📈 Consultar Desempeño de Proveedor</h2>
+    <h2 class="text-center mb-4 title-wayas">🛠️ Gestión de Insumos</h2>
 
-    <!-- Filtro por proveedor -->
+    <!-- Formulario para agregar nuevo insumo -->
     <div class="card mb-4 shadow">
       <div class="card-body">
-        <form class="row g-3" onsubmit="event.preventDefault(); cargarHistorial();">
-          <div class="col-md-10">
-            <label for="proveedor" class="form-label">Proveedor</label>
-            <input list="listaProveedores" id="proveedor" class="form-control" placeholder="Ej. AgroPerú">
-            <datalist id="listaProveedores">
-              <option value="AgroPerú">
-              <option value="Distribuidora Sur">
-              <option value="Mariscos Trujillo">
-              <option value="Granos del Valle">
-              <option value="Aceites y Condimentos S.A.C.">
-            </datalist>
+        <h5 class="card-title">➕ Agregar nuevo insumo</h5>
+        <form id="formNuevoInsumo" class="row g-3">
+          <div class="col-md-4">
+            <label for="nombreInsumo" class="form-label">Nombre del insumo</label>
+            <input type="text" class="form-control" id="nombreInsumo" required>
           </div>
-          <div class="col-md-2 align-self-end text-end">
-            <button type="submit" class="btn btn-primary w-100">🔍 Consultar</button>
+          <div class="col-md-4">
+            <label for="categoriaInsumo" class="form-label">Categoría</label>
+            <select class="form-select" id="categoriaInsumo">
+              <option>Verduras</option>
+              <option>Carnes</option>
+              <option>Frutas</option>
+              <option>Otros</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="proveedor" class="form-label">Proveedor (opcional)</label>
+            <input type="text" class="form-control" id="proveedor">
+          </div>
+          <div class="col-md-4">
+            <label for="cantidadInsumo" class="form-label">Cantidad actual</label>
+            <input type="number" class="form-control" id="cantidadInsumo" required>
+          </div>
+          <div class="col-md-4">
+            <label for="unidadMedida" class="form-label">Unidad de medida</label>
+            <input type="text" class="form-control" id="unidadMedida" placeholder="Ej. kg, litros, unidades" required>
+          </div>
+          <div class="col-md-4">
+            <label for="fechaVencimiento" class="form-label">Fecha de vencimiento (opcional)</label>
+            <input type="date" class="form-control" id="fechaVencimiento">
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Configurar parámetros de estado de stock</label>
+            <div class="input-group">
+              <span class="input-group-text">Bajo</span>
+              <input type="number" class="form-control" placeholder="Ej. 5" required>
+              <span class="input-group-text">Moderado</span>
+              <input type="number" class="form-control" placeholder="Ej. 10" required>
+              <span class="input-group-text">Suficiente</span>
+              <input type="number" class="form-control" placeholder="Ej. 20" required>
+            </div>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar insumo</button>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- Historial de requerimientos calificados -->
-    <div class="card mb-4 shadow">
+    <!-- Filtros para editar insumos -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="buscarInsumo" class="form-label">Buscar insumo</label>
+        <input type="text" class="form-control" id="buscarInsumo" placeholder="Ej. Tomate">
+      </div>
+      <div class="col-md-4">
+        <label for="filtrarCategoria" class="form-label">Filtrar por categoría</label>
+        <select class="form-select" id="filtrarCategoria">
+          <option value="">Todas</option>
+          <option>Verduras</option>
+          <option>Carnes</option>
+          <option>Frutas</option>
+          <option>Otros</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="filtrarProveedor" class="form-label">Filtrar por proveedor</label>
+        <input type="text" class="form-control" id="filtrarProveedor" placeholder="Ej. Distribuidora Lima">
+      </div>
+    </div>
+
+    <!-- Sección: Insumos agregados -->
+    <div class="card shadow">
       <div class="card-body">
-        <h5 class="card-title">📚 Historial de requerimientos calificados</h5>
-        <table class="table table-striped" id="tablaHistorial">
+        <h5 class="card-title">📦 Historial de Insumos agregados</h5>
+        <table class="table table-bordered table-hover">
           <thead class="table-light">
             <tr>
-              <th>Requerimiento</th>
-              <th>Fecha</th>
-              <th>Calidad</th>
-              <th>Peso</th>
-              <th>Puntualidad</th>
-              <th>Observaciones</th>
-              <th>Ver</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Cantidad</th>
+              <th>Unidad</th>
+              <th>Proveedor</th>
+              <th>Fecha de vencimiento</th>
+              <th>Stock (B/M/S)</th>
+              <th>Acción</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td>Tomate</td>
+              <td>Verduras</td>
+              <td>5</td>
+              <td>kg</td>
+              <td>Distribuidora Lima</td>
+              <td>2025-11-15</td>
+              <td>2 / 5 / 7</td>
+              <td class="d-flex gap-2">
+                <button class="btn btn-sm btn-warning" onclick="cargarInsumoEnFormulario('Tomate')">✏️ Editar</button>
+                <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Tomate')">🗑️ Eliminar</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Pollo</td>
+              <td>Carnes</td>
+              <td>10</td>
+              <td>kg</td>
+              <td>Carnes del Norte</td>
+              <td>2025-11-20</td>
+              <td>3 / 6 / 10</td>
+              <td class="d-flex gap-2">
+                <button class="btn btn-sm btn-warning" onclick="cargarInsumoEnFormulario('Pollo')">✏️ Editar</button>
+                <button class="btn btn-sm btn-danger" onclick="confirmarEliminacion('Pollo')">🗑️ Eliminar</button>
+              </td>
+            </tr>
+
+            <script>
+              let insumoEditando = null;
+
+              function cargarInsumoEnFormulario(nombre) {
+                const datos = {
+                  "Tomate": {
+                    nombre: "Tomate",
+                    categoria: "Verduras",
+                    unidad: "kg",
+                    cantidad: 5,
+                    proveedor: "Distribuidora Lima",
+                    fecha: "2025-11-15",
+                    stock: { bajo: 2, moderado: 5, suficiente: 7 }
+                  },
+                  "Pollo": {
+                    nombre: "Pollo",
+                    categoria: "Carnes",
+                    unidad: "kg",
+                    cantidad: 7,
+                    proveedor: "Carnes del Norte",
+                    fecha: "2025-11-20",
+                    stock: { bajo: 3, moderado: 8, suficiente: 15 }
+                  }
+                };
+
+                const insumo = datos[nombre];
+                if (insumo) {
+                  document.getElementById("nombreInsumo").value = insumo.nombre;
+                  document.getElementById("categoriaInsumo").value = insumo.categoria;
+                  document.getElementById("unidadMedida").value = insumo.unidad;
+                  document.getElementById("cantidadInsumo").value = insumo.cantidad;
+                  document.getElementById("proveedor").value = insumo.proveedor;
+                  document.getElementById("fechaVencimiento").value = insumo.fecha;
+
+                  const inputsStock = document.querySelectorAll(".input-group input");
+                  inputsStock[0].value = insumo.stock.bajo;
+                  inputsStock[1].value = insumo.stock.moderado;
+                  inputsStock[2].value = insumo.stock.suficiente;
+
+                  const btn = document.getElementById("btnGuardar");
+                  btn.textContent = "💾 Guardar cambios";
+                  btn.classList.remove("btn-primary");
+                  btn.classList.add("btn-warning");
+
+                  insumoEditando = nombre;
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }
+
+              document.getElementById("formNuevoInsumo").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                if (insumoEditando) {
+                  alert(`✅ Se guardaron los cambios para el insumo "${insumoEditando}".`);
+                  // Aquí iría la lógica para actualizar el insumo en base de datos
+                } else {
+                  const nombre = document.getElementById("nombreInsumo").value.trim();
+                  alert(`✅ Insumo "${nombre}" guardado correctamente.`);
+                  // Aquí iría la lógica para registrar el nuevo insumo
+                }
+
+                // Limpieza del formulario
+                document.getElementById("formNuevoInsumo").reset();
+                insumoEditando = null;
+
+                const btn = document.getElementById("btnGuardar");
+                btn.textContent = "Guardar insumo";
+                btn.classList.remove("btn-warning");
+                btn.classList.add("btn-primary");
+              });
+            </script>
+          </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Exportar resumen -->
-    <div class="text-end mb-4">
-      <button class="btn btn-outline-dark" onclick="exportarExcel()">📊 Exportar Excel</button>
-    </div>
-
-    <!-- Volver -->
-    <div class="text-center">
-      <a href="gestion_calificacion.html" class="btn btn-secondary">⬅ Volver a Gestión de Calificación</a>
-    </div>
+    <!-- Script de confirmación de eliminación -->
+    <script>
+      function confirmarEliminacion(nombre) {
+        if (confirm(`¿Estás seguro de que deseas eliminar el insumo "${nombre}" del sistema? Esta acción no se puede deshacer.`)) {
+          alert(`✅ Insumo "${nombre}" eliminado correctamente.`);
+          // Aquí iría la lógica para eliminar el insumo de la base de datos
+        }
+      }
+    </script>
   </div>
 
-  <!-- Bootstrap JS + SheetJS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
-  <script>
-    const historialCalificaciones = {
-      "AgroPerú": [
-        { req: "REQ-0001", fecha: "2025-10-14", calidad: "Bueno", peso: "Regular", puntualidad: "Bueno", obs: "Entrega puntual pero empaques dañados" },
-        { req: "REQ-0005", fecha: "2025-10-11", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Todo correcto" },
-        { req: "REQ-0009", fecha: "2025-10-07", calidad: "Regular", peso: "Bueno", puntualidad: "Regular", obs: "Entrega parcial" },
-        { req: "REQ-0012", fecha: "2025-10-04", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Sin observaciones" }
-      ],
-      "Distribuidora Sur": [
-        { req: "REQ-0003", fecha: "2025-10-10", calidad: "Regular", peso: "Malo", puntualidad: "Regular", obs: "Faltó peso en verduras" },
-        { req: "REQ-0006", fecha: "2025-10-08", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Entrega completa" },
-        { req: "REQ-0010", fecha: "2025-10-06", calidad: "Regular", peso: "Regular", puntualidad: "Bueno", obs: "Empaque dañado" },
-        { req: "REQ-0013", fecha: "2025-10-03", calidad: "Malo", peso: "Malo", puntualidad: "Regular", obs: "Demora en entrega" }
-      ],
-      "Mariscos Trujillo": [
-        { req: "REQ-0007", fecha: "2025-10-09", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Producto fresco" },
-        { req: "REQ-0011", fecha: "2025-10-05", calidad: "Regular", peso: "Regular", puntualidad: "Regular", obs: "Entrega parcial" },
-        { req: "REQ-0014", fecha: "2025-10-02", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Sin observaciones" },
-        { req: "REQ-0016", fecha: "2025-10-01", calidad: "Malo", peso: "Regular", puntualidad: "Malo", obs: "Producto en mal estado" }
-      ],
-      "Granos del Valle": [
-        { req: "REQ-0008", fecha: "2025-10-08", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Entrega completa" },
-        { req: "REQ-0015", fecha: "2025-10-02", calidad: "Regular", peso: "Regular", puntualidad: "Regular", obs: "Demora leve" },
-        { req: "REQ-0017", fecha: "2025-09-30", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Sin observaciones" },
-        { req: "REQ-0018", fecha: "2025-09-29", calidad: "Malo", peso: "Malo", puntualidad: "Regular", obs: "Producto vencido" }
-      ],
-      "Aceites y Condimentos S.A.C.": [
-        { req: "REQ-0019", fecha: "2025-09-28", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Entrega perfecta" },
-        { req: "REQ-0020", fecha: "2025-09-27", calidad: "Regular", peso: "Regular", puntualidad: "Regular", obs: "Demora leve" },
-        { req: "REQ-0021", fecha: "2025-09-26", calidad: "Malo", peso: "Malo", puntualidad: "Malo", obs: "Producto dañado" },
-        { req: "REQ-0022", fecha: "2025-09-25", calidad: "Bueno", peso: "Bueno", puntualidad: "Bueno", obs: "Sin observaciones" }
-      ]
-    };
-
-    function cargarHistorial() {
-      const proveedor = document.getElementById("proveedor").value.trim();
-      const tabla = document.querySelector("#tablaHistorial tbody");
-      tabla.innerHTML = "";
-
-      if (historialCalificaciones[proveedor]) {
-        historialCalificaciones[proveedor].forEach(item => {
-          const fila = document.createElement("tr");
-          fila.innerHTML = `
-            <td>${item.req}</td>
-            <td>${item.fecha}</td>
-            <td>${item.calidad}</td>
-            <td>${item.peso}</td>
-            <td>${item.puntualidad}</td>
-            <td>${item.obs}</td>
-            <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-          `;
-          tabla.appendChild(fila);
-        });
-      } else {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `<td colspan="7" class="text-center text-muted">No se encontraron calificaciones para el proveedor ingresado.</td>`;
-        tabla.appendChild(fila);
-      }
-    }
-
-    function exportarExcel() {
-     
-      const tabla = document.getElementById("tablaHistorial");
-      const wb = XLSX.utils.table_to_book(tabla, { sheet: "Historial" });
-      XLSX.writeFile(wb, "Historial_Calificaciones.xlsx");
-    }
-  </script>
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
