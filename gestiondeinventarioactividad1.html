@@ -68,43 +68,43 @@
       </div>
     </div>
 
-    <!-- Ingredientes -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">🥕 Ingredientes</h5>
-        <form class="row g-3">
-          <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="Nombre del ingrediente">
-          </div>
-          <div class="col-md-3">
-            <input type="number" class="form-control" placeholder="Cantidad">
-          </div>
-          <div class="col-md-3">
-            <select class="form-select">
-              <option>kg</option>
-              <option>g</option>
-              <option>ml</option>
-              <option>unidades</option>
-            </select>
-          </div>
-          <div class="col-md-2 text-end">
-            <button class="btn btn-outline-primary">➕ Agregar</button>
-          </div>
-        </form>
-
-        <!-- Lista simulada -->
-        <ul class="list-group mt-3">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            500 g de zapallo
-            <button class="btn btn-sm btn-danger">🗑️</button>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            1 cebolla
-            <button class="btn btn-sm btn-danger">🗑️</button>
-          </li>
-        </ul>
+<!-- Ingredientes en una sola línea -->
+<div class="card mb-4 shadow">
+  <div class="card-body">
+    <h5 class="card-title">🥕 Ingredientes</h5>
+    <form class="d-flex flex-wrap align-items-end gap-3">
+      <div class="flex-grow-1">
+        <input type="text" class="form-control" placeholder="Nombre del ingrediente">
       </div>
-    </div>
+      <div style="width: 120px;">
+        <input type="number" class="form-control" placeholder="Cantidad">
+      </div>
+      <div style="width: 120px;">
+        <select class="form-select">
+          <option>kg</option>
+          <option>g</option>
+          <option>ml</option>
+          <option>unidades</option>
+        </select>
+      </div>
+      <div class="col-md-2 text-end">
+        <button type="submit" class="btn btn-outline-primary w-100">➕ Agregar</button>
+      </div>
+    </form>
+
+    <!-- Lista simulada -->
+    <ul class="list-group mt-3">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        500 g de zapallo
+        <button class="btn btn-sm btn-danger">🗑️</button>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        1 cebolla
+        <button class="btn btn-sm btn-danger">🗑️</button>
+      </li>
+    </ul>
+  </div>
+</div>
 
     <div class="col-md-12">
       <label for="pasosReceta" class="form-label">👨‍🍳 Pasos de preparación</label>
