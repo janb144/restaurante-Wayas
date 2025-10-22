@@ -10,95 +10,169 @@
 </head>
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4 title-wayas">🧾 Registrar Proveedor Nuevo</h2>
+    <h2 class="text-center mb-4 title-wayas">🧾 Registrar Nuevo Proveedor</h2>
 
-    <!-- Formulario de proveedor -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <form class="row g-3">
-          <div class="col-md-6">
-            <label for="nombreProveedor" class="form-label">Nombre del proveedor</label>
-            <input type="text" class="form-control" id="nombreProveedor" placeholder="Ej. AgroPerú SAC">
-          </div>
-          <div class="col-md-3">
-            <label for="ruc" class="form-label">RUC</label>
-            <input type="text" class="form-control" id="ruc" placeholder="Ej. 20481234567">
-          </div>
-          <div class="col-md-3">
-            <label for="contacto" class="form-label">Contacto</label>
-            <input type="text" class="form-control" id="contacto" placeholder="Ej. 987654321">
-          </div>
-          <div class="col-md-6">
-            <label for="tipoInsumo" class="form-label">Tipo de insumo</label>
-            <select id="tipoInsumo" class="form-select">
-              <option>Verduras</option>
-              <option>Carnes</option>
-              <option>Bebidas</option>
-              <option>Otros</option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label for="estado" class="form-label">Estado</label>
-            <select id="estado" class="form-select">
-              <option>Activo</option>
-              <option>Inactivo</option>
-            </select>
-          </div>
-          <div class="col-md-3 d-flex align-items-end">
-            <button class="btn btn-outline-secondary w-100">🔍 Validar duplicado</button>
-          </div>
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-success">✅ Registrar proveedor</button>
-          </div>
-        </form>
+<!-- Formulario de proveedor -->
+<div class="card mb-4 shadow">
+  <div class="card-body">
+    <form class="row g-3" id="formProveedor">
+      <input type="hidden" id="idProveedor">
+      <div class="col-md-6">
+        <label for="nombreProveedor" class="form-label">Nombre del proveedor</label>
+        <input type="text" class="form-control" id="nombreProveedor" placeholder="Ej. AgroPerú SAC">
       </div>
-    </div>
+      <div class="col-md-3">
+        <label for="ruc" class="form-label">RUC</label>
+        <input type="text" class="form-control" id="ruc" placeholder="Ej. 20481234567">
+      </div>
+      <div class="col-md-3">
+        <label for="contacto" class="form-label">Contacto</label>
+        <input type="text" class="form-control" id="contacto" placeholder="Ej. 987654321">
+      </div>
+      <div class="col-md-6">
+        <label for="tipoInsumo" class="form-label">Tipo de insumo</label>
+        <select id="tipoInsumo" class="form-select">
+          <option>Verduras</option>
+          <option>Carnes</option>
+          <option>Bebidas</option>
+          <option>Otros</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="estado" class="form-label">Estado</label>
+        <select id="estado" class="form-select">
+          <option>Activo</option>
+          <option>Inactivo</option>
+        </select>
+      </div>
+  <div class="col-md-3 align-self-end text-end">
+    <button type="submit" class="btn btn-success w-100" id="btnGuardar">✅ Registrar proveedor</button>
+  </div>
 
-    <!-- Historial de proveedores -->
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">📚 Historial de proveedores registrados</h5>
-        <table class="table table-striped">
-          <thead class="table-light">
-            <tr>
-                            <th>ID Proveedor</th>
-              <th>Nombre</th>
-              <th>RUC</th>
-              <th>Contacto</th>
-              <th>Tipo de insumo</th>
-              <th>Estado</th>
-              <th>Ver</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>PV-0046</td>
-              <td>AgroPerú SAC</td>
-              <td>20481234567</td>
-              <td>987654321</td>
-              <td>Verduras</td>
-              <td><span class="badge bg-success">Activo</span></td>
-              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-            </tr>
-            <tr>
-              <td>PV-0045</td>
-              <td>Distribuidora Sur</td>
-              <td>20567891234</td>
-              <td>912345678</td>
-              <td>Carnes</td>
-              <td><span class="badge bg-danger">Inactivo</span></td>
-              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    </form>
+  </div>
+</div>
+
+<!-- Historial de proveedores -->
+<div class="card shadow">
+  <div class="card-body">
+    <h5 class="card-title">📚 Historial de proveedores registrados</h5>
+<!-- Filtro de búsqueda -->
+<form class="row mb-3" onsubmit="event.preventDefault(); filtrarProveedores();">
+  <div class="col-md-6">
+    <input type="text" class="form-control" id="busquedaProveedor" placeholder="Buscar por nombre o RUC">
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-outline-primary w-100">🔍 Buscar</button>
+  </div>
+</form>
+<table class="table table-striped" id="tablaProveedores">
+  <thead class="table-light">
+    <tr>
+      <th>ID Proveedor</th>
+      <th>Nombre</th>
+      <th>RUC</th>
+      <th>Contacto</th>
+      <th>Tipo de insumo</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr>
+    <td>PV-0046</td>
+    <td>AgroPerú SAC</td>
+    <td>20481234567</td>
+    <td>987654321</td>
+    <td>Verduras</td>
+    <td><span class="badge bg-success">Activo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0046')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0045</td>
+    <td>Distribuidora Sur</td>
+    <td>20567891234</td>
+    <td>912345678</td>
+    <td>Carnes</td>
+    <td><span class="badge bg-danger">Inactivo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0045')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0044</td>
+    <td>Bebidas Andinas</td>
+    <td>20345678901</td>
+    <td>923456789</td>
+    <td>Bebidas</td>
+    <td><span class="badge bg-success">Activo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0044')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0043</td>
+    <td>Frutas del Norte</td>
+    <td>20678901234</td>
+    <td>934567890</td>
+    <td>Otros</td>
+    <td><span class="badge bg-danger">Inactivo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0043')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0042</td>
+    <td>SuperCarnes</td>
+    <td>20234567890</td>
+    <td>945678901</td>
+    <td>Carnes</td>
+    <td><span class="badge bg-success">Activo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0042')">✏️ Editar</button></td>
+  </tr>
+</tbody>
+</table>
+  </div>
+</div>
 
     <!-- Volver -->
     <div class="text-center mt-4">
       <a href="gestion_calificacion.html" class="btn btn-secondary">⬅ Volver a Gestión de Calificación</a>
     </div>
   </div>
+<script>
+  const proveedores = {
+    "PV-0046": { id: "PV-0046", nombre: "AgroPerú SAC", ruc: "20481234567", contacto: "987654321", tipo: "Verduras", estado: "Activo" },
+    "PV-0045": { id: "PV-0045", nombre: "Distribuidora Sur", ruc: "20567891234", contacto: "912345678", tipo: "Carnes", estado: "Inactivo" },
+    "PV-0044": { id: "PV-0044", nombre: "Bebidas Andinas", ruc: "20345678901", contacto: "923456789", tipo: "Bebidas", estado: "Activo" },
+    "PV-0043": { id: "PV-0043", nombre: "Frutas del Norte", ruc: "20678901234", contacto: "934567890", tipo: "Otros", estado: "Inactivo" },
+    "PV-0042": { id: "PV-0042", nombre: "SuperCarnes", ruc: "20234567890", contacto: "945678901", tipo: "Carnes", estado: "Activo" }
+  };
+
+  function editarProveedor(id) {
+    const proveedor = proveedores[id];
+    if (proveedor) {
+      document.getElementById("idProveedor").value = proveedor.id;
+      document.getElementById("nombreProveedor").value = proveedor.nombre;
+      document.getElementById("ruc").value = proveedor.ruc;
+      document.getElementById("contacto").value = proveedor.contacto;
+      document.getElementById("tipoInsumo").value = proveedor.tipo;
+      document.getElementById("estado").value = proveedor.estado;
+
+      const btn = document.getElementById("btnGuardar");
+      btn.textContent = "💾 Guardar cambios";
+      btn.classList.remove("btn-success");
+      btn.classList.add("btn-warning");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function filtrarProveedores() {
+    const filtro = document.getElementById("busquedaProveedor").value.toLowerCase();
+    const filas = document.querySelectorAll("#tablaProveedores tbody tr");
+
+    filas.forEach(fila => {
+      const nombre = fila.cells[1].textContent.toLowerCase();
+      const ruc = fila.cells[2].textContent.toLowerCase();
+      fila.style.display = (nombre.includes(filtro) || ruc.includes(filtro)) ? "" : "none";
+    });
+  }
+</script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

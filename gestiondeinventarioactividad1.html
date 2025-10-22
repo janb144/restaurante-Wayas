@@ -1,157 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ajustar Receta</title>
+  <title>Registrar Proveedor</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4 title-wayas">✏️ Ajustar Receta</h2>
+    <h2 class="text-center mb-4 title-wayas">🧾 Registrar Proveedor Nuevo</h2>
 
-    <!-- Selección de receta editable -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">📋 Lista de Recetas Aprobadas</h5>
-        <form class="row g-3">
-          <div class="col-md-8">
-            <select class="form-select" id="selectorReceta" onchange="cargarRecetaAprobada(this.value)">
-              <option selected disabled>Seleccionar receta</option>
-              <option>Crema de zapallo</option>
-              <option>Lomo saltado</option>
-            </select>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Comentarios del administrador -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">💬 Comentarios del administrador</h5>
-        <p class="text-muted">“Faltan pasos de cocción y ajustar cantidad de zapallo para porciones grandes.”</p>
-      </div>
-    </div>
-
-    <!-- Edición de receta -->
-    <div class="card mb-4 shadow">
-      <div class="card-body">
-        <h5 class="card-title">🛠️ Editar receta</h5>
-        <form class="row g-3">
-          <div class="col-md-6">
-            <label for="nombreReceta" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombreReceta">
-          </div>
-          <div class="col-md-6">
-            <label for="categoria" class="form-label">Categoría</label>
-            <select id="categoria" class="form-select">
-              <option>Entrada</option>
-              <option>Plato principal</option>
-              <option>Postre</option>
-              <option>Bebida</option>
-            </select>
-          </div>
-          <div class="col-md-12">
-            <label for="descripcion" class="form-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" rows="2"></textarea>
-          </div>
-          <div class="col-md-3">
-            <label for="porciones" class="form-label">N° de Porciones</label>
-            <input type="number" class="form-control" id="porciones">
-          </div>
-      </div>
-    </div>
-
-<!-- Ingredientes en una sola línea -->
+<!-- Formulario de proveedor -->
 <div class="card mb-4 shadow">
   <div class="card-body">
-    <h5 class="card-title">🥕 Ingredientes</h5>
-    <form class="d-flex flex-wrap align-items-end gap-3">
-      <div class="flex-grow-1">
-        <input type="text" class="form-control" placeholder="Nombre del ingrediente">
+    <form class="row g-3" id="formProveedor">
+      <input type="hidden" id="idProveedor">
+      <div class="col-md-6">
+        <label for="nombreProveedor" class="form-label">Nombre del proveedor</label>
+        <input type="text" class="form-control" id="nombreProveedor" placeholder="Ej. AgroPerú SAC">
       </div>
-      <div style="width: 120px;">
-        <input type="number" class="form-control" placeholder="Cantidad">
+      <div class="col-md-3">
+        <label for="ruc" class="form-label">RUC</label>
+        <input type="text" class="form-control" id="ruc" placeholder="Ej. 20481234567">
       </div>
-      <div style="width: 120px;">
-        <select class="form-select">
-          <option>kg</option>
-          <option>g</option>
-          <option>ml</option>
-          <option>unidades</option>
+      <div class="col-md-3">
+        <label for="contacto" class="form-label">Contacto</label>
+        <input type="text" class="form-control" id="contacto" placeholder="Ej. 987654321">
+      </div>
+      <div class="col-md-6">
+        <label for="tipoInsumo" class="form-label">Tipo de insumo</label>
+        <select id="tipoInsumo" class="form-select">
+          <option>Verduras</option>
+          <option>Carnes</option>
+          <option>Bebidas</option>
+          <option>Otros</option>
         </select>
       </div>
-      <div class="col-md-2 text-end">
-        <button type="submit" class="btn btn-outline-primary w-100">➕ Agregar</button>
+      <div class="col-md-3">
+        <label for="estado" class="form-label">Estado</label>
+        <select id="estado" class="form-select">
+          <option>Activo</option>
+          <option>Inactivo</option>
+        </select>
       </div>
-    </form>
+  <div class="col-md-3 align-self-end text-end">
+    <button type="submit" class="btn btn-success w-100" id="btnGuardar">✅ Registrar proveedor</button>
+  </div>
 
-    <!-- Lista simulada -->
-    <ul class="list-group mt-3">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        500 g de zapallo
-        <button class="btn btn-sm btn-danger">🗑️</button>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        1 cebolla
-        <button class="btn btn-sm btn-danger">🗑️</button>
-      </li>
-    </ul>
+    </form>
   </div>
 </div>
 
-    <div class="col-md-12">
-      <label for="pasosReceta" class="form-label">👨‍🍳 Pasos de preparación</label>
-      <textarea class="form-control" id="pasosReceta" rows="5"
-        placeholder="Ej. 1. Cortar el zapallo en cubos. 2. Saltear cebolla y agregar zapallo."></textarea>
-    </div>
-    </form>
-
-
-    <div class="text-end">
-      <button class="btn btn-outline-success">📤 Reenviar receta ajustada a validación</button>
-    </div>
+<!-- Historial de proveedores -->
+<div class="card shadow">
+  <div class="card-body">
+    <h5 class="card-title">📚 Historial de proveedores registrados</h5>
+<!-- Filtro de búsqueda -->
+<form class="row mb-3" onsubmit="event.preventDefault(); filtrarProveedores();">
+  <div class="col-md-6">
+    <input type="text" class="form-control" id="busquedaProveedor" placeholder="Buscar por nombre o RUC">
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-outline-primary w-100">🔍 Buscar</button>
+  </div>
+</form>
+<table class="table table-striped" id="tablaProveedores">
+  <thead class="table-light">
+    <tr>
+      <th>ID Proveedor</th>
+      <th>Nombre</th>
+      <th>RUC</th>
+      <th>Contacto</th>
+      <th>Tipo de insumo</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr>
+    <td>PV-0046</td>
+    <td>AgroPerú SAC</td>
+    <td>20481234567</td>
+    <td>987654321</td>
+    <td>Verduras</td>
+    <td><span class="badge bg-success">Activo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0046')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0045</td>
+    <td>Distribuidora Sur</td>
+    <td>20567891234</td>
+    <td>912345678</td>
+    <td>Carnes</td>
+    <td><span class="badge bg-danger">Inactivo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0045')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0044</td>
+    <td>Bebidas Andinas</td>
+    <td>20345678901</td>
+    <td>923456789</td>
+    <td>Bebidas</td>
+    <td><span class="badge bg-success">Activo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0044')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0043</td>
+    <td>Frutas del Norte</td>
+    <td>20678901234</td>
+    <td>934567890</td>
+    <td>Otros</td>
+    <td><span class="badge bg-danger">Inactivo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0043')">✏️ Editar</button></td>
+  </tr>
+  <tr>
+    <td>PV-0042</td>
+    <td>SuperCarnes</td>
+    <td>20234567890</td>
+    <td>945678901</td>
+    <td>Carnes</td>
+    <td><span class="badge bg-success">Activo</span></td>
+    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0042')">✏️ Editar</button></td>
+  </tr>
+</tbody>
+</table>
+  </div>
+</div>
 
     <!-- Volver -->
     <div class="text-center mt-4">
-      <a href="gestion_recetas.html" class="btn btn-secondary">⬅ Volver a Gestión de Recetas</a>
+      <a href="gestion_calificacion.html" class="btn btn-secondary">⬅ Volver a Gestión de Calificación</a>
     </div>
   </div>
-  <script>
-    function cargarRecetaAprobada(nombre) {
-      const recetas = {
-        "Crema de zapallo": {
-          nombre: "Crema de zapallo",
-          porciones: 4,
-          descripcion: "Crema suave de zapallo con especias.",
-          pasos: "1. Cortar el zapallo en cubos.\n2. Saltear cebolla y agregar zapallo.\n3. Cocinar hasta que esté suave.\n4. Licuar y servir caliente."
-        },
-        "Lomo saltado": {
-          nombre: "Lomo saltado",
-          porciones: 4,
-          descripcion: "Plato criollo con carne salteada.",
-          pasos: "1. Cortar la carne en tiras finas.\n2. Saltear con cebolla y tomate.\n3. Agregar papas fritas.\n4. Servir con arroz blanco."
-        }
-      };
+<script>
+  const proveedores = {
+    "PV-0046": { id: "PV-0046", nombre: "AgroPerú SAC", ruc: "20481234567", contacto: "987654321", tipo: "Verduras", estado: "Activo" },
+    "PV-0045": { id: "PV-0045", nombre: "Distribuidora Sur", ruc: "20567891234", contacto: "912345678", tipo: "Carnes", estado: "Inactivo" },
+    "PV-0044": { id: "PV-0044", nombre: "Bebidas Andinas", ruc: "20345678901", contacto: "923456789", tipo: "Bebidas", estado: "Activo" },
+    "PV-0043": { id: "PV-0043", nombre: "Frutas del Norte", ruc: "20678901234", contacto: "934567890", tipo: "Otros", estado: "Inactivo" },
+    "PV-0042": { id: "PV-0042", nombre: "SuperCarnes", ruc: "20234567890", contacto: "945678901", tipo: "Carnes", estado: "Activo" }
+  };
 
-      const receta = recetas[nombre];
-      if (receta) {
-        document.getElementById("nombreReceta").value = receta.nombre;
-        document.getElementById("porciones").value = receta.porciones;
-        document.getElementById("descripcion").value = receta.descripcion;
-        document.getElementById("pasosReceta").value = receta.pasos;
-      }
+  function editarProveedor(id) {
+    const proveedor = proveedores[id];
+    if (proveedor) {
+      document.getElementById("idProveedor").value = proveedor.id;
+      document.getElementById("nombreProveedor").value = proveedor.nombre;
+      document.getElementById("ruc").value = proveedor.ruc;
+      document.getElementById("contacto").value = proveedor.contacto;
+      document.getElementById("tipoInsumo").value = proveedor.tipo;
+      document.getElementById("estado").value = proveedor.estado;
+
+      const btn = document.getElementById("btnGuardar");
+      btn.textContent = "💾 Guardar cambios";
+      btn.classList.remove("btn-success");
+      btn.classList.add("btn-warning");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  </script>
+  }
+
+  function filtrarProveedores() {
+    const filtro = document.getElementById("busquedaProveedor").value.toLowerCase();
+    const filas = document.querySelectorAll("#tablaProveedores tbody tr");
+
+    filas.forEach(fila => {
+      const nombre = fila.cells[1].textContent.toLowerCase();
+      const ruc = fila.cells[2].textContent.toLowerCase();
+      fila.style.display = (nombre.includes(filtro) || ruc.includes(filtro)) ? "" : "none";
+    });
+  }
+</script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
