@@ -1,180 +1,216 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrar Proveedor</title>
+  <title>Calificar Proveedor</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="container py-5">
-    <h2 class="text-center mb-4 title-wayas">🧾 Registrar Proveedor Nuevo</h2>
+    <h2 class="text-center mb-4 title-wayas">⭐ Calificar Proveedor tras Compra</h2>
 
-<!-- Formulario de proveedor -->
-<div class="card mb-4 shadow">
-  <div class="card-body">
-    <form class="row g-3" id="formProveedor">
-      <input type="hidden" id="idProveedor">
-      <div class="col-md-6">
-        <label for="nombreProveedor" class="form-label">Nombre del proveedor</label>
-        <input type="text" class="form-control" id="nombreProveedor" placeholder="Ej. AgroPerú SAC">
-      </div>
-      <div class="col-md-3">
-        <label for="ruc" class="form-label">RUC</label>
-        <input type="text" class="form-control" id="ruc" placeholder="Ej. 20481234567">
-      </div>
-      <div class="col-md-3">
-        <label for="contacto" class="form-label">Contacto</label>
-        <input type="text" class="form-control" id="contacto" placeholder="Ej. 987654321">
-      </div>
-      <div class="col-md-6">
-        <label for="tipoInsumo" class="form-label">Tipo de insumo</label>
-        <select id="tipoInsumo" class="form-select">
-          <option>Verduras</option>
-          <option>Carnes</option>
-          <option>Bebidas</option>
-          <option>Otros</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label for="estado" class="form-label">Estado</label>
-        <select id="estado" class="form-select">
-          <option>Activo</option>
-          <option>Inactivo</option>
-        </select>
-      </div>
-  <div class="col-md-3 align-self-end text-end">
-    <button type="submit" class="btn btn-success w-100" id="btnGuardar">✅ Registrar proveedor</button>
-  </div>
+    <!-- Selección de requerimiento comprado -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📦 Seleccionar requerimiento comprado</h5>
+        <form class="row g-3" onsubmit="event.preventDefault(); verDetallesRequerimiento();">
+          <div class="col-md-8">
+            <select class="form-select" id="selectorRequerimiento">
+              <option selected disabled>Seleccionar requerimiento</option>
+              <option value="REQ-0001">REQ-0001 - AgroPerú</option>
+              <option value="REQ-0002">REQ-0002 - Distribuidora Sur</option>
+              <option value="REQ-0003">REQ-0003 - Mariscos Trujillo</option>
+              <option value="REQ-0004">REQ-0004 - Granos del Valle</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-outline-primary w-100">🔍 Ver detalles</button>
+          </div>
+        </form>
 
-    </form>
-  </div>
-</div>
+        <!-- Detalle del requerimiento -->
+        <div class="mt-4" id="detalleRequerimiento" style="display: none;">
+          <h6>📄 Detalle del requerimiento</h6>
+          <p><strong>Proveedor:</strong> <span id="detalleProveedor"></span></p>
+          <p><strong>Fecha:</strong> <span id="detalleFecha"></span></p>
+          <p><strong>Insumos:</strong></p>
+          <ul id="detalleInsumos"></ul>
+        </div>
+      </div>
+    </div>
 
-<!-- Historial de proveedores -->
-<div class="card shadow">
-  <div class="card-body">
-    <h5 class="card-title">📚 Historial de proveedores registrados</h5>
-<!-- Filtro de búsqueda -->
-<form class="row mb-3" onsubmit="event.preventDefault(); filtrarProveedores();">
-  <div class="col-md-6">
-    <input type="text" class="form-control" id="busquedaProveedor" placeholder="Buscar por nombre o RUC">
-  </div>
-  <div class="col-md-2">
-    <button type="submit" class="btn btn-outline-primary w-100">🔍 Buscar</button>
-  </div>
-</form>
-<table class="table table-striped" id="tablaProveedores">
-  <thead class="table-light">
-    <tr>
-      <th>ID Proveedor</th>
-      <th>Nombre</th>
-      <th>RUC</th>
-      <th>Contacto</th>
-      <th>Tipo de insumo</th>
-      <th>Estado</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-<tbody>
-  <tr>
-    <td>PV-0046</td>
-    <td>AgroPerú SAC</td>
-    <td>20481234567</td>
-    <td>987654321</td>
-    <td>Verduras</td>
-    <td><span class="badge bg-success">Activo</span></td>
-    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0046')">✏️ Editar</button></td>
-  </tr>
-  <tr>
-    <td>PV-0045</td>
-    <td>Distribuidora Sur</td>
-    <td>20567891234</td>
-    <td>912345678</td>
-    <td>Carnes</td>
-    <td><span class="badge bg-danger">Inactivo</span></td>
-    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0045')">✏️ Editar</button></td>
-  </tr>
-  <tr>
-    <td>PV-0044</td>
-    <td>Bebidas Andinas</td>
-    <td>20345678901</td>
-    <td>923456789</td>
-    <td>Bebidas</td>
-    <td><span class="badge bg-success">Activo</span></td>
-    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0044')">✏️ Editar</button></td>
-  </tr>
-  <tr>
-    <td>PV-0043</td>
-    <td>Frutas del Norte</td>
-    <td>20678901234</td>
-    <td>934567890</td>
-    <td>Otros</td>
-    <td><span class="badge bg-danger">Inactivo</span></td>
-    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0043')">✏️ Editar</button></td>
-  </tr>
-  <tr>
-    <td>PV-0042</td>
-    <td>SuperCarnes</td>
-    <td>20234567890</td>
-    <td>945678901</td>
-    <td>Carnes</td>
-    <td><span class="badge bg-success">Activo</span></td>
-    <td><button class="btn btn-sm btn-warning" onclick="editarProveedor('PV-0042')">✏️ Editar</button></td>
-  </tr>
-</tbody>
-</table>
-  </div>
-</div>
+    <!-- Calificación por criterios -->
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+        <h5 class="card-title">📝 Evaluar proveedor</h5>
+        <form class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Calidad del insumo</label>
+            <select class="form-select">
+              <option>Bueno</option>
+              <option>Regular</option>
+              <option>Malo</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Cumplimiento de peso</label>
+            <select class="form-select">
+              <option>Bueno</option>
+              <option>Regular</option>
+              <option>Malo</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Puntualidad en entrega</label>
+            <select class="form-select">
+              <option>Bueno</option>
+              <option>Regular</option>
+              <option>Malo</option>
+            </select>
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Observaciones (opcional)</label>
+            <textarea class="form-control" rows="3"
+              placeholder="Ej. Entrega puntual pero empaques dañados..."></textarea>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success">✅ Guardar calificación</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Historial de calificaciones -->
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">📚 Historial de calificaciones por proveedor</h5>
+        <table class="table table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>ID Proveedor</th>
+              <th>Proveedor</th>
+              <th>Compra</th>
+              <th>Fecha</th>
+              <th>Calidad</th>
+              <th>Peso</th>
+              <th>Puntualidad</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PV0043</td>
+              <td>AgroPerú</td>
+              <td>REQ-0001</td>
+              <td>2025-10-14</td>
+              <td>Bueno</td>
+              <td>Regular</td>
+              <td>Bueno</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+            <tr>
+              <td>PV0102</td>
+              <td>Distribuidora Sur</td>
+              <td>REQ-0002</td>
+              <td>2025-10-10</td>
+              <td>Regular</td>
+              <td>Malo</td>
+              <td>Regular</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+            <tr>
+              <td>PV0088</td>
+              <td>Mariscos Trujillo</td>
+              <td>REQ-0003</td>
+              <td>2025-10-13</td>
+              <td>Bueno</td>
+              <td>Bueno</td>
+              <td>Regular</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+            <tr>
+              <td>PV0067</td>
+              <td>Granos del Valle</td>
+              <td>REQ-0004</td>
+              <td>2025-10-12</td>
+              <td>Regular</td>
+              <td>Regular</td>
+              <td>Malo</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+            <tr>
+              <td>PV0055</td>
+              <td>Aceites y Condimentos S.A.C.</td>
+              <td>REQ-0005</td>
+              <td>2025-10-11</td>
+              <td>Bueno</td>
+              <td>Bueno</td>
+              <td>Bueno</td>
+              <td><button class="btn btn-sm btn-outline-primary">🔍</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <!-- Volver -->
     <div class="text-center mt-4">
       <a href="gestion_calificacion.html" class="btn btn-secondary">⬅ Volver a Gestión de Calificación</a>
     </div>
   </div>
-<script>
-  const proveedores = {
-    "PV-0046": { id: "PV-0046", nombre: "AgroPerú SAC", ruc: "20481234567", contacto: "987654321", tipo: "Verduras", estado: "Activo" },
-    "PV-0045": { id: "PV-0045", nombre: "Distribuidora Sur", ruc: "20567891234", contacto: "912345678", tipo: "Carnes", estado: "Inactivo" },
-    "PV-0044": { id: "PV-0044", nombre: "Bebidas Andinas", ruc: "20345678901", contacto: "923456789", tipo: "Bebidas", estado: "Activo" },
-    "PV-0043": { id: "PV-0043", nombre: "Frutas del Norte", ruc: "20678901234", contacto: "934567890", tipo: "Otros", estado: "Inactivo" },
-    "PV-0042": { id: "PV-0042", nombre: "SuperCarnes", ruc: "20234567890", contacto: "945678901", tipo: "Carnes", estado: "Activo" }
-  };
+  <script>
+    const requerimientos = {
+      "REQ-0001": {
+        proveedor: "AgroPerú",
+        fecha: "2025-10-14",
+        insumos: ["Tomate - 12 kg", "Pollo - 8 kg", "Cebolla - 5 kg"]
+      },
+      "REQ-0002": {
+        proveedor: "Distribuidora Sur",
+        fecha: "2025-10-10",
+        insumos: ["Manzana - 6 kg", "Zanahoria - 4 kg", "Plátano - 5 kg"]
+      },
+      "REQ-0003": {
+        proveedor: "Mariscos Trujillo",
+        fecha: "2025-10-13",
+        insumos: ["Pescado - 6 kg", "Calamar - 3 kg"]
+      },
+      "REQ-0004": {
+        proveedor: "Granos del Valle",
+        fecha: "2025-10-12",
+        insumos: ["Arroz - 25 kg", "Lentejas - 10 kg", "Sal - 3 kg"]
+      }
+    };
 
-  function editarProveedor(id) {
-    const proveedor = proveedores[id];
-    if (proveedor) {
-      document.getElementById("idProveedor").value = proveedor.id;
-      document.getElementById("nombreProveedor").value = proveedor.nombre;
-      document.getElementById("ruc").value = proveedor.ruc;
-      document.getElementById("contacto").value = proveedor.contacto;
-      document.getElementById("tipoInsumo").value = proveedor.tipo;
-      document.getElementById("estado").value = proveedor.estado;
+    function verDetallesRequerimiento() {
+      const selector = document.getElementById("selectorRequerimiento");
+      const id = selector.value;
+      const detalle = requerimientos[id];
 
-      const btn = document.getElementById("btnGuardar");
-      btn.textContent = "💾 Guardar cambios";
-      btn.classList.remove("btn-success");
-      btn.classList.add("btn-warning");
+      if (detalle) {
+        document.getElementById("detalleProveedor").textContent = detalle.proveedor;
+        document.getElementById("detalleFecha").textContent = detalle.fecha;
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+        const ul = document.getElementById("detalleInsumos");
+        ul.innerHTML = "";
+        detalle.insumos.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          ul.appendChild(li);
+        });
+
+        document.getElementById("detalleRequerimiento").style.display = "block";
+      }
     }
-  }
-
-  function filtrarProveedores() {
-    const filtro = document.getElementById("busquedaProveedor").value.toLowerCase();
-    const filas = document.querySelectorAll("#tablaProveedores tbody tr");
-
-    filas.forEach(fila => {
-      const nombre = fila.cells[1].textContent.toLowerCase();
-      const ruc = fila.cells[2].textContent.toLowerCase();
-      fila.style.display = (nombre.includes(filtro) || ruc.includes(filtro)) ? "" : "none";
-    });
-  }
-</script>
+  </script>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
